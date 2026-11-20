@@ -1,0 +1,112 @@
+{
+  "repository": "raspberrypi/linux",
+  "revision": "b0b7d2006113562307ade2f6a075b03f3a781346",
+  "warning": "Source presence only; no hardware validation",
+  "probes": [
+    {
+      "id": "cm0",
+      "path": "arch/arm64/boot/dts/broadcom/bcm2710-rpi-cm0.dts",
+      "sha256": "18c7eaadb62278a7e2705545a6c93b5de8558831e00f20ff153366a3d7c52f8c",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/arch/arm64/boot/dts/broadcom/bcm2710-rpi-cm0.dts"
+    },
+    {
+      "id": "display-drm-panel",
+      "path": "drivers/gpu/drm/panel/panel-sitronix-st7789v.c",
+      "sha256": "cdda70386f105aedc47ee8fe37fadb3b3a8435413a9c9c226b79b98ac96ff319",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/gpu/drm/panel/panel-sitronix-st7789v.c"
+    },
+    {
+      "id": "display-fbtft",
+      "path": "drivers/staging/fbtft/fb_st7789v.c",
+      "sha256": "c40e224203297e43eb9604579b1ce40d8a73a6d248d769bbd251d5eecf57863d",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/staging/fbtft/fb_st7789v.c"
+    },
+    {
+      "id": "keyboard",
+      "path": "drivers/input/keyboard/tca8418_keypad.c",
+      "sha256": "8bec8fe376abac47763f9afc3f7de89f76331187d5eee93ce2152ee1901669cc",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/input/keyboard/tca8418_keypad.c"
+    },
+    {
+      "id": "wifi",
+      "path": "drivers/net/wireless/broadcom/brcm80211/brcmfmac/Kconfig",
+      "sha256": "bcf68063fb3d3d3659bf7c166dfe1da7bf54353247c925578e961b3446175648",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/net/wireless/broadcom/brcm80211/brcmfmac/Kconfig"
+    },
+    {
+      "id": "bluetooth",
+      "path": "drivers/bluetooth/hci_bcm.c",
+      "sha256": "7745ad8c06dd7145004524e35f31f7860d067cc3521ea30a5588085155c2e683",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/bluetooth/hci_bcm.c"
+    },
+    {
+      "id": "ethernet-candidate",
+      "path": "drivers/net/usb/sr9700.c",
+      "sha256": "0baaac831400f35dc0032f919f7c40ecad72c4758b73232b6e1f3b3816c81f0b",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/net/usb/sr9700.c"
+    },
+    {
+      "id": "battery",
+      "path": "drivers/power/supply/bq27xxx_battery_i2c.c",
+      "sha256": "a167ef07e528b282340e5ac5b526eefe758342b027b1dffae088e5ff6cd4b011",
+      "result": "identifier-not-found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/power/supply/bq27xxx_battery_i2c.c"
+    },
+    {
+      "id": "rtc-candidate",
+      "path": "drivers/rtc/rtc-rx8581.c",
+      "sha256": "f5a0657d0690787213b03f4e2b19b6ee0cf5fac2e0d6cdf5cb2c650a05dd1ab2",
+      "result": "identifier-not-found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/rtc/rtc-rx8581.c"
+    },
+    {
+      "id": "audio",
+      "path": "sound/soc/codecs/es8389.c",
+      "sha256": "5253bf7a0f1504a4b7a5c8121d5c1deedffd8ee81d2d0b09bdac3d9603c6f7a2",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/sound/soc/codecs/es8389.c"
+    },
+    {
+      "id": "camera",
+      "path": "drivers/media/i2c/imx219.c",
+      "sha256": "56091ecde1d1ae4231e189679b9e63352e6dc0992b876c18f42109755115a491",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/media/i2c/imx219.c"
+    },
+    {
+      "id": "imu",
+      "path": "drivers/iio/imu/bmi270/bmi270_core.c",
+      "sha256": "2f2a3db52facf2829cc401c6862de5cd92bf3ca72c178819a6c3e72152efcd9d",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/iio/imu/bmi270/bmi270_core.c"
+    },
+    {
+      "id": "magnetometer",
+      "path": "drivers/iio/magnetometer/bmc150_magn.c",
+      "sha256": "237eb6294d5a4e056b5a05dd35976a3527fd92be6b59639cddaaf1c91dfc4f6d",
+      "result": "identifier-not-found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/iio/magnetometer/bmc150_magn.c"
+    },
+    {
+      "id": "ir-rx",
+      "path": "drivers/media/rc/gpio-ir-recv.c",
+      "sha256": "08a1c5f1546ff66904110d0e2c82be297b872d0ceb8d109763cbd4097c0f93c8",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/media/rc/gpio-ir-recv.c"
+    },
+    {
+      "id": "ir-tx",
+      "path": "drivers/media/rc/gpio-ir-tx.c",
+      "sha256": "fcbeb3180c39fb3c9022a40a6f990acfdaab3699f42c9ed3c3e034044da5bfd7",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/media/rc/gpio-ir-tx.c"
+    }
+  ]
+}

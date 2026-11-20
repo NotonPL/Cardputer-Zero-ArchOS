@@ -1,0 +1,53 @@
+# Source existence is NOT proof that a device works.
+repository = "raspberrypi/linux"
+revision = "b0b7d2006113562307ade2f6a075b03f3a781346"
+packaging_revision = "1d580617de584d86734df49377c72a3cdddfbfb2"
+
+[[probe]]
+id = "cm0"
+path = "arch/arm64/boot/dts/broadcom/bcm2710-rpi-cm0.dts"
+[[probe]]
+id = "display-drm-panel"
+path = "drivers/gpu/drm/panel/panel-sitronix-st7789v.c"
+[[probe]]
+id = "display-fbtft"
+path = "drivers/staging/fbtft/fb_st7789v.c"
+[[probe]]
+id = "keyboard"
+path = "drivers/input/keyboard/tca8418_keypad.c"
+[[probe]]
+id = "wifi"
+path = "drivers/net/wireless/broadcom/brcm80211/brcmfmac/Kconfig"
+[[probe]]
+id = "bluetooth"
+path = "drivers/bluetooth/hci_bcm.c"
+[[probe]]
+id = "ethernet-candidate"
+path = "drivers/net/usb/sr9700.c"
+[[probe]]
+id = "battery"
+path = "drivers/power/supply/bq27xxx_battery_i2c.c"
+needle = "bq27220"
+[[probe]]
+id = "rtc-candidate"
+path = "drivers/rtc/rtc-rx8581.c"
+needle = "rx8130"
+[[probe]]
+id = "audio"
+path = "sound/soc/codecs/es8389.c"
+[[probe]]
+id = "camera"
+path = "drivers/media/i2c/imx219.c"
+[[probe]]
+id = "imu"
+path = "drivers/iio/imu/bmi270/bmi270_core.c"
+[[probe]]
+id = "magnetometer"
+path = "drivers/iio/magnetometer/bmc150_magn.c"
+needle = "bmm150"
+[[probe]]
+id = "ir-rx"
+path = "drivers/media/rc/gpio-ir-recv.c"
+[[probe]]
+id = "ir-tx"
+path = "drivers/media/rc/gpio-ir-tx.c"
