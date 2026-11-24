@@ -1,0 +1,66 @@
+repository = "m5stack/m5stack-linux-dtoverlays"
+revision = "a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4"
+
+[[probe]]
+id = "vendor-00"
+path = "COPYING"
+
+[[probe]]
+id = "vendor-01"
+path = "modules/CardputerZero/Makefile"
+
+[[probe]]
+id = "vendor-02"
+path = "modules/CardputerZero/cardputerzero-v5-overlay.dts"
+
+[[probe]]
+id = "vendor-03"
+path = "modules/CardputerZero/cardputerzero-v3-overlay.dts"
+
+[[probe]]
+id = "vendor-04"
+path = "modules/CardputerZero/powerfail_suo.c"
+
+[[probe]]
+id = "vendor-05"
+path = "modules/m5ioe1-1.0/m5ioe1.c"
+
+[[probe]]
+id = "vendor-06"
+path = "modules/tca8418-1.0/tca8418_keypad_m5stack.c"
+
+[[probe]]
+id = "vendor-07"
+path = "modules/tca8418-1.0/tca8418_fsm.c"
+
+[[probe]]
+id = "vendor-08"
+path = "modules/tca8418-1.0/tca8418_keypad_m5stack_keymap.map"
+
+[[probe]]
+id = "vendor-09"
+path = "modules/bq27220-1.0/bq27xxx_battery_i2c.c"
+
+[[probe]]
+id = "vendor-10"
+path = "modules/bq27220-1.0/bq27xxx_battery.c"
+
+[[probe]]
+id = "vendor-11"
+path = "modules/bq27220-1.0/bq27220_v5.dts"
+
+[[probe]]
+id = "vendor-12"
+path = "modules/rx8130/rx8130-overlay.dts"
+
+[[probe]]
+id = "vendor-13"
+path = "modules/st7789v-1.0/panel-mipi-dbi-m.c"
+
+[[probe]]
+id = "vendor-14"
+path = "modules/st7789v-1.0/pwm_bl_m5stack.c"
+
+[[probe]]
+id = "vendor-15"
+path = "modules/es8389-1.0/es8389_m5stack.c"

@@ -1,6 +1,43 @@
 # Etapy i raport iteracji
 
-## Bieżąca iteracja: etap 1 (częściowo wykonany, bramka otwarta)
+## Iteracja 3: konfiguracja z fizycznego urządzenia (etap 1)
+
+Użytkownik udostępnił kernel config i config.txt z działającego CM0,
+Debian 13, kernel 6.18.39+rpt-rpi-v8, overlay v5. Zachowano referencję
+w `hardware/reference/stock-cm0-v5/` wraz z analizą i SHA256 wejść.
+Nie identyfikuje to automatycznie rewizji PCB ani commita modułów vendor.
+
+Dodano `tools/inspect_stock_config.py` i `tests/test_stock_config.py`.
+Raport rozróżnia opcje wyłączone/nieobecne i zachowuje filtry firmware;
+nie stosuje ustawień do urządzenia. Istotne: CONFIG_MODVERSIONS=y,
+BQ27XXX/ES8389 upstream wyłączone mimo obecnych modułów zewnętrznych,
+fbcon włączony, fonty 8×8/8×16, gpu_mem=128 i overlay cma-64.
+Nie zmieniono rezerwacji pamięci i nie wyciągnięto wyników RAM z konfiguracji.
+
+Testy offline: 30/30 OK, w tym odtworzenie raportu z załączonych plików.
+Nadal brak kompilacji modułów i boot testu Arch. Szczegóły, pochodzenie
+obserwacji użytkownika i granice wnioskowania w README referencji.
+
+## Iteracja 2: źródła vendor i mapa klawiatury (etap 1 nadal trwa)
+
+Znaleziono i przypięto źródła producenta dla M5IOE1/BQ27220/LCD/klawiatury.
+Potwierdzono upstream RX8130 w rtc-ds1307. Wyodrębniono trzy warstwy po
+46 pozycji z v5; nie są to jeszcze testy fizycznej klawiatury.
+Szczegóły i konflikty DT/shutdown: [vendor-integration.md](vendor-integration.md).
+
+Nowe pliki: hardware/{vendor-sources.toml,vendor-evidence.json,rtc-sources.toml,
+rtc-evidence.json,keymap-v5.json}, tools/inspect_keymap.py,
+tests/test_keymap.py, docs/vendor-integration.md. Zmienione: audytor źródeł
+(opcjonalny cache i ochrona ścieżek), build.sh (--audit-vendor), README,
+dokumentacja kompatybilności i ten raport.
+
+Testy: 23/23 offline OK; audyt 16 plików vendor i 2 plików RTC bez błędów;
+validator rzeczywistego v5: 5×10, 46 pozycji w każdej warstwie.
+Nie kompilowano modułów/DT, nie uruchomiono instalatora, nie testowano boot.
+Obraz nadal zablokowany. Brak źródeł nie jest już główną blokadą M5IOE1;
+pozostają zgodność API/bindingów, wybór rewizji PCB i bezpieczne wyłączanie.
+
+## Iteracja 1: stan historyczny (częściowo wykonany)
 
 Wykonano analizę producenta/ALARM, audyt przypiętego źródła kernela,
 identyfikację różnic CM0/Zero 2, macierz kandydatów sterowników i blokad.

@@ -1,0 +1,10 @@
+repository = "raspberrypi/linux"
+revision = "b0b7d2006113562307ade2f6a075b03f3a781346"
+[[probe]]
+id = "rtc-rx8130"
+path = "drivers/rtc/rtc-ds1307.c"
+needle = "epson,rx8130"
+[[probe]]
+id = "rtc-kconfig"
+path = "drivers/rtc/Kconfig"
+needle = "config RTC_DRV_DS1307"

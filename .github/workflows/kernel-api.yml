@@ -1,0 +1,56 @@
+name: AArch64 driver API check
+on:
+  push:
+    paths:
+      - 'kernel/**'
+      - 'tools/*build*'
+      - 'hardware/reference/**'
+      - '.github/workflows/kernel-api.yml'
+  pull_request:
+    paths:
+      - 'kernel/**'
+      - 'tools/*build*'
+      - 'hardware/reference/**'
+      - '.github/workflows/kernel-api.yml'
+permissions:
+  contents: read
+jobs:
+  compile-objects:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build dependencies (CI host only)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-aarch64-linux-gnu make flex bison libssl-dev libelf-dev bc device-tree-compiler
+      - name: Fetch SHA256-locked sources
+        run: |
+          python3 tools/fetch_build_sources.py kernel --destination .cache/build-kernel
+          python3 tools/fetch_build_sources.py vendor --destination .cache/build-vendor
+      - name: Prepare kernel API using stock reference options
+        run: |
+          cp hardware/reference/stock-cm0-v5/kernel.config .cache/build-kernel/.config
+          make -C .cache/build-kernel ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- olddefconfig
+          make -C .cache/build-kernel ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 modules_prepare
+          mkdir -p out/kernel-api
+          cp .cache/build-kernel/.config out/kernel-api/prepared.config
+          make -s -C .cache/build-kernel ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- kernelrelease > out/kernel-api/kernelrelease.txt
+      - name: Compile curated vendor objects (not loadable modules)
+        run: |
+          python3 tools/build_vendor_modules.py --kernel-build .cache/build-kernel \
+            --vendor-source .cache/build-vendor --mode objects --output out/kernel-api/compile
+      - name: Retain diagnostics, never publish as an OS image
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kernel-api-diagnostics
+          path: |
+            out/kernel-api/**/report.json
+            out/kernel-api/**/build.log
+            out/kernel-api/prepared.config
+            out/kernel-api/kernelrelease.txt
+          if-no-files-found: warn

@@ -1,5 +1,10 @@
 # Etap 1 — kompatybilność (2026-11-20)
 
+> Historyczny audyt pierwszej iteracji. [Uzupełnienie vendor](vendor-integration.md)
+> aktualizuje ustalenia: znaleziono sterownik M5IOE1, BQ27220 i mapy klawiatury;
+> RX8130 obsługuje rtc-ds1307. Poniższe „braki” opisują zakres poprzedniego
+> sprawdzenia, nie bieżącą dostępność źródeł. Testy sprzętowe nadal niewykonane.
+
 ## Źródła i granice weryfikacji
 
 1. [Dokumentacja M5Stack](https://docs.m5stack.com/en/CardputerZero),

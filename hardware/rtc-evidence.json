@@ -1,0 +1,21 @@
+{
+  "repository": "raspberrypi/linux",
+  "revision": "b0b7d2006113562307ade2f6a075b03f3a781346",
+  "warning": "Source presence only; no hardware validation",
+  "probes": [
+    {
+      "id": "rtc-rx8130",
+      "path": "drivers/rtc/rtc-ds1307.c",
+      "sha256": "faf4a7cddd46cc7348d86559410d2dab2f2b07eef077154f0e0626b3b39e542e",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/rtc/rtc-ds1307.c"
+    },
+    {
+      "id": "rtc-kconfig",
+      "path": "drivers/rtc/Kconfig",
+      "sha256": "76fa78cedb3245860803d40c55d2c4e2e97e2deb1d8621fec50c83069e51f2c0",
+      "result": "found",
+      "url": "https://github.com/raspberrypi/linux/blob/b0b7d2006113562307ade2f6a075b03f3a781346/drivers/rtc/Kconfig"
+    }
+  ]
+}
