@@ -184,3 +184,14 @@ Dowód dla commitu `bff9664`: `kernel/battery-build-evidence.json`.
 Lokalnie zaliczono 53 testy offline.
 Powerfail/shutdown pozostaje osobnym nierozwiązanym blokerem. Nadal brak obrazu
 systemu, bootu i pomiarów sprzętowych.
+
+## Iteracja 7 — audyt powerfail (blokada sprzętowa)
+
+Wyniki i plan testów: [powerfail-audit.md](powerfail-audit.md).
+Prześledzono vendor IRQ/work/DT oraz przypięty kernel SysRq/remount/reboot.
+Nowe ustalenie: SysRq U tylko kolejkuje remount, a vendor natychmiast przechodzi
+do wyjścia M5IOE1 bez oczekiwania na zakończenie. Dodatkowo kolejność unload
+wymaga przeglądu synchronizacji IRQ/work. Nie zmieniono zachowania zasilania:
+brak schematu, potwierdzonego znaczenia GPIO11 i pomiaru podtrzymania nie pozwala
+uczciwie dobrać bezpiecznej sekwencji ani opóźnienia. Etap pozostaje zablokowany;
+nie przechodzimy do obrazu i nie traktujemy kompilacji jako testu zaniku zasilania.
