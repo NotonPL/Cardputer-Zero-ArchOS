@@ -76,6 +76,17 @@ class Kbuild(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Module.symvers'):
                 builder.preflight(root, 'modules')
 
+    def test_modversions_flag_without_crc_encoding_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.prepare(root)
+            (root/'Module.symvers').write_text('nonempty fixture')
+            with self.assertRaisesRegex(ValueError, 'BASIC_MODVERSIONS'):
+                builder.preflight(root, 'modules')
+            with (root/'.config').open('a') as config:
+                config.write('CONFIG_BASIC_MODVERSIONS=y\n')
+            builder.preflight(root, 'modules')
+
     def test_non_arm64_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

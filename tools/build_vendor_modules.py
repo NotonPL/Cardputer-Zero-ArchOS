@@ -40,6 +40,9 @@ def preflight(kernel, mode):
         symvers = kernel/'Module.symvers'
         if not symvers.is_file() or not symvers.stat().st_size:
             raise ValueError('full module build requires nonempty Module.symvers from matching kernel build')
+        if ('CONFIG_MODVERSIONS=y' in config.splitlines()
+                and 'CONFIG_BASIC_MODVERSIONS=y' not in config.splitlines()):
+            raise ValueError('BASIC_MODVERSIONS=y required for the current module CRC validation tools')
     return config
 
 

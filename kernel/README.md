@@ -70,8 +70,9 @@ make install, config_setup ani zapisu do /boot czy /lib/modules hosta.
 Zewnętrzny kod wykonywany przez Kbuild pochodzi z przypiętych źródeł;
 kompilować bez roota na izolowanym hoście.
 
-Pliki firmware, konfiguracja keymap, udev, DTBO i initramfs NIE są jeszcze
-pakowane. Nie instalować tych kompilatów na fabrycznym systemie ani nie
+Docelowe pakiety firmware, keymap, udev, DTBO i initramfs NIE są jeszcze
+przygotowane. Osobny bundle poniżej jest wyłącznie artefaktem testowym.
+Nie instalować tych kompilatów na fabrycznym systemie ani nie
 flashować katalogu output jako obrazu. Instrukcje są procedurą budowania;
 aktualny faktyczny wynik testów dokumentujemy w docs/stages.md.
 
@@ -116,3 +117,30 @@ kamera). Nie instalować połączonego DTB na urządzeniu. Sterowniki, firmware,
 polaryzacje i shutdown nadal wymagają testów sprzętowych. Status faktycznie
 wykonanych przebiegów znajduje się w docs/stages.md; samo istnienie tego
 workflow nie jest dowodem udanego builda.
+
+## Staging i kontrola zależności modułów
+
+`scripts/stage-kernel-test.sh KERNEL_BUILD VENDOR_BUILD DT_RESULTS NEW_OUTPUT`
+przyjmuje wyłącznie udany raport buildera w trybie modules. Tworzy świeży
+katalog z układem `/usr/lib/modules` i lokalnym symlinkiem `lib -> usr/lib`.
+Wywołanie kernelowego modules_install dostaje jawne INSTALL_MOD_PATH tego
+katalogu; nie jest to instalacja na runnerze/urządzeniu. Następnie dołącza
+vendor `.ko`, usuwa wyłącznie symlinki build/source ze stagingu i uruchamia
+depmod z połączoną tablicą symboli kernela i vendor. Dowolny komunikat stderr
+z tej kontroli jest błędem, a nie ignorowanym ostrzeżeniem.
+
+Bundle zachowuje Image, config, wyniki DT, moduły, hashe, źródłowy lock,
+raport i tekst GPL. Workflow archiwizuje go jako kernel-test-bundle.tar.gz.
+Nazwa NIE oznacza obrazu microSD ani kompletnego rootfs. Brak boot firmware
+Pi, firmware LCD/Wi-Fi/BMI270, initramfs i userspace Arch. Nie flashować.
+Sterownik baterii może programować kontroler podczas inicjalizacji; sukces
+modpost/depmod tego nie testuje ani nie akceptuje. Powerfail także pozostaje
+blokadą bootowania. Archiwum jest przeznaczone do dalszej analizy/pakowania,
+nie do samodzielnego instalowania na fabrycznej karcie.
+
+W CI cache jest indeksowany źródłowym lockiem, platformą i wersją GCC;
+zmieniony fragment konfiguracji może korzystać z inkrementalnego buildu
+tylko przy zgodnym źródle/toolchain. Kconfig i kontrola kontraktu są zawsze
+uruchamiane ponownie. Nie twierdzimy jeszcze, że binaria są bitowo
+powtarzalne między runnerami (czas/build-host i cały toolchain wymagają
+osobnego przypięcia).

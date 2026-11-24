@@ -64,6 +64,15 @@ wymagają osobnej weryfikacji praw redystrybucji.
    oraz pobieranie skryptu z zewnątrz. Nie wywołujemy `make install` ani
    `config_setup`. Arch musi mieć własny pakiet z DESTDIR, wyraźnym wariantem
    płyty i modułami zbudowanymi dokładnie do użytego kernela.
+6. **BQ27220 nie jest wyłącznie odczytowy**: w przypiętym
+   `modules/bq27220-1.0/bq27xxx_battery.c`, funkcja
+   `bq27xxx_battery_setup` wywołuje `bq27xxx_battery_settings`, która dla
+   BQ27220 przechodzi do programowania parametrów z DT. Kod obejmuje
+   FCC/design capacity, napięcia, profil i konfigurację NTC. Nie należy
+   utożsamiać wyłączonego CONFIG_BATTERY_BQ27XXX_DT_UPDATES_NVM z blokadą
+   tej osobnej ścieżki BQ27220. Wymagany osobny audyt/default bez zmiany
+   profilu przed dopuszczeniem do bootowania. Kompilacja i depmod nie
+   uruchamiają tej logiki i nie dotykają baterii użytkownika.
 
 ## Powtarzanie analizy
 
