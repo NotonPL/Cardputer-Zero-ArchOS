@@ -4,6 +4,8 @@ on:
     paths:
       - 'kernel/**'
       - 'tools/*build*'
+      - 'tools/test_battery_transport.py'
+      - 'tests/c/**'
       - 'scripts/check-vendor-overlays.sh'
       - 'hardware/reference/**'
       - '.github/workflows/kernel-api.yml'
@@ -11,6 +13,8 @@ on:
     paths:
       - 'kernel/**'
       - 'tools/*build*'
+      - 'tools/test_battery_transport.py'
+      - 'tests/c/**'
       - 'scripts/check-vendor-overlays.sh'
       - 'hardware/reference/**'
       - '.github/workflows/kernel-api.yml'
@@ -45,6 +49,8 @@ jobs:
         run: |
           python3 tools/build_vendor_modules.py --kernel-build .cache/build-kernel \
             --vendor-source .cache/build-vendor --mode objects --output out/kernel-api/compile
+      - name: Test patched battery transport without hardware
+        run: python3 tools/test_battery_transport.py --drivers out/kernel-api/compile/drivers
       - name: Compile v5 overlays and inspect fixups (no base DT application)
         run: bash scripts/check-vendor-overlays.sh .cache/build-vendor out/kernel-api/overlays
       - name: Retain diagnostics, never publish as an OS image

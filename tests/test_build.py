@@ -133,3 +133,17 @@ class Kbuild(unittest.TestCase):
         lock = json.loads((ROOT/'kernel/build-lock.json').read_text())
         evidence = json.loads((ROOT/'hardware/vendor-evidence.json').read_text())
         self.assertEqual(lock['vendor']['revision'], evidence['revision'])
+
+
+class SafetyPatch(unittest.TestCase):
+    def test_patch_lock_matches(self):
+        lock = json.loads((ROOT/'kernel/patches/series.json').read_text())
+        self.assertEqual(builder.sha(ROOT/'kernel/patches'/lock['patch']), lock['sha256'])
+
+    def test_unexpected_input_rejected_without_mutation(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            stage = Path(tmp)
+            (stage/'bq27xxx_battery_i2c.c').write_text('not the pinned source')
+            with self.assertRaisesRegex(ValueError, 'unexpected vendor source'):
+                builder.apply_safety_patch(stage)
+            self.assertEqual((stage/'bq27xxx_battery_i2c.c').read_text(), 'not the pinned source')

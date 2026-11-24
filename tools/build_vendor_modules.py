@@ -21,6 +21,27 @@ GROUPS = {
     'imu-1.0/magnetometer': ['bmc150_magn', 'bmc150_magn_bmi270'],
 }
 TARGETS = [target for targets in GROUPS.values() for target in targets]
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def apply_safety_patch(stage):
+    lock = json.loads((ROOT/'kernel/patches/series.json').read_text())
+    patch = ROOT/'kernel/patches'/lock['patch']
+    if sha(patch) != lock['sha256']:
+        raise ValueError('safety patch SHA256 mismatch')
+    for name, hashes in lock['files'].items():
+        if sha(stage/name) != hashes['before']:
+            raise ValueError(f'unexpected vendor source for safety patch: {name}')
+    result = subprocess.run(['patch', '--batch', '--forward', '--fuzz=0', '-p1',
+                             '--directory', str(stage), '--input', str(patch)],
+                            capture_output=True, text=True)
+    if result.returncode:
+        raise ValueError('safety patch failed: '+result.stdout+result.stderr)
+    for name, hashes in lock['files'].items():
+        if sha(stage/name) != hashes['after']:
+            raise ValueError(f'safety patch output SHA256 mismatch: {name}')
+    return dict(id='bq27220-telemetry-only-v1', patch_sha256=lock['sha256'],
+                files=lock['files'])
 
 
 def sha(path):
@@ -108,6 +129,7 @@ def main():
                   note='Object mode checks C API only; modules mode is not a boot or load test.')
     try:
         report['sources'] = stage_sources(vendor, output/'drivers')
+        report['safety_patch'] = apply_safety_patch(output/'drivers')
         if (kernel/'Module.symvers').is_file():
             report['symvers_sha256'] = sha(kernel/'Module.symvers')
         cmd = command(kernel, output/'drivers', args.cross_compile, args.jobs, args.mode)

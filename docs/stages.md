@@ -167,3 +167,18 @@ dla nieistniejącego obrazu. Na tym etapie zachować stockową kartę nietknięt
 a przyszłe testy wykonywać na drugiej karcie. Procedura końcowa musi obejmować
 weryfikację podpisu/hash, identyfikację nośnika, potwierdzenie usunięcia danych,
 weryfikację zapisu, powrót do stock i odzyskanie konfiguracji z backupu.
+
+## Iteracja 6 — ograniczenie BQ27220 do telemetrii (weryfikacja w toku)
+
+Dodano obowiązkową łatkę sterownika z kontrolą SHA256 wejścia, łatki i wyjścia.
+Blokuje oba callbacki zapisu dla BQ27220, pomija programowanie profilu podczas
+inicjalizacji i odrzuca wymuszony reset. Nie ma przełącznika odblokowującego zapis.
+Raport budowania rozróżnia źródła upstream od zmodyfikowanych.
+
+Lokalny test C rzeczywistych, wyciętych z zahashowanego źródła funkcji z atrapą
+I2C: 768 prób zapisu odrzuconych bez transferu, pominięte ustawienia, odczyty
+i propagacja błędów zachowane. Nie jest to test urządzenia; odczyty rozszerzone
+wymagające komend MAC mogą nie działać. CI ponownie sprawdzi pełne linkowanie
+oraz depmod. Poprzedni zielony build nie jest dowodem dla nowej łatki.
+Powerfail/shutdown pozostaje osobnym nierozwiązanym blokerem. Nadal brak obrazu
+systemu, bootu i pomiarów sprzętowych.

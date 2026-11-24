@@ -4,8 +4,11 @@ on:
     paths:
       - 'kernel/cardputer-v5.config'
       - 'kernel/contract.json'
+      - 'tools/test_battery_transport.py'
+      - 'tests/c/**'
       - 'tools/check_kernel_contract.py'
       - 'tools/build_vendor_modules.py'
+      - 'kernel/patches/**'
       - 'scripts/check-cm0-dt.sh'
       - 'scripts/stage-kernel-test.sh'
       - '.github/workflows/kernel-full.yml'
@@ -62,6 +65,7 @@ jobs:
       - name: Link vendor modules against matching symbol table
         run: |
           python3 tools/build_vendor_modules.py --kernel-build .cache/full-kernel --vendor-source .cache/full-vendor --mode modules --jobs 4 --output out/full/vendor
+          python3 tools/test_battery_transport.py --drivers out/full/vendor/drivers
           release=$(cat out/full/kernelrelease.txt)
           for module in out/full/vendor/drivers/*.ko; do
             vermagic=$(modinfo -F vermagic "$module")

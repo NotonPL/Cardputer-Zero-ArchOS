@@ -1,0 +1,14 @@
+{
+  "patch": "0001-bq27220-telemetry-only.patch",
+  "sha256": "a832be4a583f457bc43137bac26c57bcf73d3d7ac2ee3fc10601fa1b58c8d56b",
+  "files": {
+    "bq27xxx_battery_i2c.c": {
+      "before": "a90820219fc32ec924ff0098f654d4d1f7ab9913211843ee498f3c26c042a1c3",
+      "after": "0c4c24f744b5e403f816fbc6ac120fae15fac279f4c5c232147bcf3e3ee7cd2a"
+    },
+    "bq27xxx_battery.c": {
+      "before": "59f0c65f8d04b73d145d7eb137b17a28c7b9b6d2420bf2889954fb3ea8b40339",
+      "after": "32cf26c6ce5703097e5ce775ead5fbc6eb54e3db34fe452e34966525172bc3f9"
+    }
+  }
+}

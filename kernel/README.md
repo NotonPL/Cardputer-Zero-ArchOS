@@ -144,3 +144,23 @@ tylko przy zgodnym źródle/toolchain. Kconfig i kontrola kontraktu są zawsze
 uruchamiane ponownie. Nie twierdzimy jeszcze, że binaria są bitowo
 powtarzalne między runnerami (czas/build-host i cały toolchain wymagają
 osobnego przypięcia).
+
+### BQ27220: telemetry-only safety patch
+
+`patches/series.json` locks the patch and both input/output source hashes.
+The builder always applies it before either object compilation or module linking;
+there is no bypass flag. `report.json` preserves upstream source hashes plus
+separate patch and modified-source hashes. A mismatch stops the build.
+
+For BQ27220 both transport write callbacks return `-EPERM` before any transfer.
+Automatic profile programming is skipped; forced reset is denied. This blocks
+MAC/sysfs command writes as well as profile/unseal operations. Normal register
+reads retain the I2C register-selector write phase: this is not an electrically
+write-free bus. Extended MAC/data-memory reads requiring command writes may fail.
+No claim is made that all exposed telemetry is functional on hardware.
+
+`tools/test_battery_transport.py --drivers <staged-drivers>` compiles the exact
+hash-verified patched read/write/settings functions with fake I2C callbacks.
+It checks 768 blocked writes, settings skip/reset denial, successful reads,
+read-error propagation and unchanged other-chip transport. It does not load a
+module, contact a device, or prove real gauge/charger/power-loss safety.
