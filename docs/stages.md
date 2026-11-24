@@ -168,7 +168,7 @@ a przyszłe testy wykonywać na drugiej karcie. Procedura końcowa musi obejmowa
 weryfikację podpisu/hash, identyfikację nośnika, potwierdzenie usunięcia danych,
 weryfikację zapisu, powrót do stock i odzyskanie konfiguracji z backupu.
 
-## Iteracja 6 — ograniczenie BQ27220 do telemetrii (weryfikacja w toku)
+## Iteracja 6 — ograniczenie BQ27220 do telemetrii (build CI zaliczony)
 
 Dodano obowiązkową łatkę sterownika z kontrolą SHA256 wejścia, łatki i wyjścia.
 Blokuje oba callbacki zapisu dla BQ27220, pomija programowanie profilu podczas
@@ -178,7 +178,9 @@ Raport budowania rozróżnia źródła upstream od zmodyfikowanych.
 Lokalny test C rzeczywistych, wyciętych z zahashowanego źródła funkcji z atrapą
 I2C: 768 prób zapisu odrzuconych bez transferu, pominięte ustawienia, odczyty
 i propagacja błędów zachowane. Nie jest to test urządzenia; odczyty rozszerzone
-wymagające komend MAC mogą nie działać. CI ponownie sprawdzi pełne linkowanie
-oraz depmod. Poprzedni zielony build nie jest dowodem dla nowej łatki.
+wymagające komend MAC mogą nie działać. CI [45439638212](https://github.com/NotonPL/Cardputer-Zero-ArchOS/actions/runs/45439638212)
+zaliczyło Image, 15 modułów, test atrap I2C, scalanie DT oraz ścisły depmod.
+Dowód dla commitu `bff9664`: `kernel/battery-build-evidence.json`.
+Lokalnie zaliczono 53 testy offline.
 Powerfail/shutdown pozostaje osobnym nierozwiązanym blokerem. Nadal brak obrazu
 systemu, bootu i pomiarów sprzętowych.
