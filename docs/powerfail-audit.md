@@ -78,3 +78,13 @@ Nie wykonywano żadnego z tych testów na urządzeniu.
 **Decyzja:** vendor `powerfail_suo.ko` pozostaje wyłącznie artefaktem kompilacji.
 Nie zatwierdzamy ładowania modułu, instalacji overlay ani obrazu dla użytkownika.
 Wyłączenie samego sterownika również nie jest rozwiązaniem ochrony danych.
+
+## Identyfikacja egzemplarza po audycie
+
+Użytkownik potwierdził pełny wariant i dostarczył zdjęcia pudełka oraz obudowy;
+odczyt oznaczeń: [hardware/user-device.md](../hardware/user-device.md).
+M5IOE1 0x4F oraz BQ27220 są zgodne z oczekiwanymi oznaczeniami. Nie wynika
+z tego potwierdzenie rewizji v5, funkcji GPIO11 ani czasu podtrzymania.
+Wyszukiwanie kodu GitHub w `m5stack/m5-docs` dla `CardputerZero` nie zwróciło
+wyników; to ograniczony wynik wyszukiwania, nie dowód braku dokumentacji.
+Schemat zasilania pozostaje do pozyskania i analizy.
