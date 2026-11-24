@@ -87,3 +87,32 @@ oraz fdtget, zachowuje wszystkie ostrzeżenia i listę fixupów oraz hashe.
 Nie wykonuje fdtoverlay na CM0 DTB: sukces kompilacji nie oznacza zgodności
 phandle, bindingów lub sprzętu. Nie instaluje wyników. Obecne konflikty
 opisane w docs/vendor-integration.md nadal wymagają rozwiązania.
+
+## Pełny eksperymentalny build CM0/v5
+
+`cardputer-v5.config` jest nowym fragmentem do allnoconfig dla przypiętego
+źródła Raspberry Pi 6.18.64. To NIE zminimalizowany na podstawie pomiarów
+config produkcyjny ani pełny port pakietu Arch. Ogranicza zakres kompilacji
+do jawnych funkcji planowanego urządzenia zamiast budować tysiące obcych
+sterowników. Kamera/V4L2 i pełny stos IR nie są jeszcze włączone w tym
+wariancie testowym; test koncentruje się na podstawowym kernelu i 15 modułach.
+Wartości governor/CMA/zram są ustawieniami kandydata do późniejszych testów,
+nie dowodem oszczędności RAM/energii ani osiągniętych wyników.
+
+Workflow `kernel-full.yml`:
+1. Pobiera te same archiwa kontrolowane przez SHA256.
+2. Uruchamia allnoconfig i zapisuje RZECZYWISTY wygenerowany config.
+3. `check_kernel_contract.py` sprawdza wymagane funkcje i brak konkurujących
+   sterowników upstream, zapisując również różnice względem fragmentu.
+4. Buduje Image i wszystkie skonfigurowane moduły, bez obejścia modpost.
+5. Buduje vendor `.ko` z pełnym Module.symvers i sprawdza vermagic.
+6. Buduje CM0 DTB z symbolami i nakłada trzy overlay przez fdtoverlay.
+   `check-cm0-dt.sh` sprawdza obecność M5IOE1/klawiatury i adresy RTC 0x32,
+   baterii 0x55, IMU 0x68 w połączonym drzewie.
+
+To strukturalny test DT, nie dt-schema ani emulacja sekwencji firmware:
+nie nakładamy jeszcze wszystkich overlay/parametrów stock (VC4/dwc2/IR/
+kamera). Nie instalować połączonego DTB na urządzeniu. Sterowniki, firmware,
+polaryzacje i shutdown nadal wymagają testów sprzętowych. Status faktycznie
+wykonanych przebiegów znajduje się w docs/stages.md; samo istnienie tego
+workflow nie jest dowodem udanego builda.

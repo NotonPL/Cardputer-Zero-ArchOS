@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - 'kernel/cardputer-v5.config'
+      - 'kernel/contract.json'
+      - 'tools/check_kernel_contract.py'
       - 'tools/build_vendor_modules.py'
       - 'scripts/check-cm0-dt.sh'
       - '.github/workflows/kernel-full.yml'
@@ -21,9 +23,19 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gcc-aarch64-linux-gnu make flex bison libssl-dev libelf-dev bc device-tree-compiler kmod
+      - name: Toolchain identity
+        id: toolchain
+        run: echo "version=$(aarch64-linux-gnu-gcc -dumpfullversion)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v4
+        id: kernelcache
+        with:
+          path: .cache/full-kernel
+          key: cm0-v1-${{ runner.os }}-${{ runner.arch }}-gcc${{ steps.toolchain.outputs.version }}-${{ hashFiles('kernel/build-lock.json', 'kernel/cardputer-v5.config') }}
       - name: Fetch locked sources
         run: |
-          python3 tools/fetch_build_sources.py kernel --destination .cache/full-kernel
+          if [[ "${{ steps.kernelcache.outputs.cache-hit }}" != 'true' ]]; then
+            python3 tools/fetch_build_sources.py kernel --destination .cache/full-kernel
+          fi
           python3 tools/fetch_build_sources.py vendor --destination .cache/full-vendor
       - name: Configure experimental CM0 kernel
         run: |
@@ -31,12 +43,20 @@ jobs:
           make -C .cache/full-kernel ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- KCONFIG_ALLCONFIG="$PWD/kernel/cardputer-v5.config" allnoconfig > out/full/configure.log 2>&1
           cp .cache/full-kernel/.config out/full/kernel.config
           make -s -C .cache/full-kernel ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- kernelrelease > out/full/kernelrelease.txt
+      - name: Verify resolved configuration contract
+        run: python3 tools/check_kernel_contract.py --config out/full/kernel.config --output out/full/contract.json
       - name: Build Image and ALL configured modules (no modpost bypass)
+        id: kernelimage
         run: |
           make -C .cache/full-kernel ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j4 Image modules > out/full/kernel-build.log 2>&1
           test -s .cache/full-kernel/Module.symvers
           cp .cache/full-kernel/Module.symvers out/full/Module.symvers
           cp .cache/full-kernel/arch/arm64/boot/Image out/full/Image
+      - uses: actions/cache/save@v4
+        if: steps.kernelimage.outcome == 'success' && steps.kernelcache.outputs.cache-hit != 'true'
+        with:
+          path: .cache/full-kernel
+          key: ${{ steps.kernelcache.outputs.cache-primary-key }}
       - name: Link vendor modules against matching symbol table
         run: |
           python3 tools/build_vendor_modules.py --kernel-build .cache/full-kernel --vendor-source .cache/full-vendor --mode modules --jobs 4 --output out/full/vendor
@@ -52,6 +72,18 @@ jobs:
           make -C .cache/full-kernel ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- DTC_FLAGS=-@ broadcom/bcm2710-rpi-cm0.dtb > out/full/dt-build.log 2>&1
           bash scripts/check-vendor-overlays.sh .cache/full-vendor out/full/overlays
           bash scripts/check-cm0-dt.sh .cache/full-kernel/arch/arm64/boot/dts/broadcom/bcm2710-rpi-cm0.dtb out/full/overlays out/full/merged-dt
+      - name: Expose failure diagnostics through check annotations
+        if: failure()
+        run: |
+          python3 - <<'PYDIAG'
+          from pathlib import Path
+          for name in ('configure.log', 'contract.json', 'kernel-build.log', 'vendor/build.log', 'dt-build.log'):
+              path = Path('out/full')/name
+              if path.exists():
+                  tail = path.read_text(errors='replace')[-3500:]
+                  tail = tail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+                  print(f'::error title={name}::{tail}')
+          PYDIAG
       - name: Retain logs even when build fails
         if: always()
         uses: actions/upload-artifact@v4
@@ -59,6 +91,7 @@ jobs:
           name: experimental-kernel-build
           path: |
             out/full/*.log
+            out/full/contract.json
             out/full/kernel.config
             out/full/kernelrelease.txt
             out/full/Module.symvers
