@@ -1,0 +1,44 @@
+{
+  "hardware_validated": false,
+  "status": "blocked-numbering-and-firmware",
+  "sources": [
+    {
+      "repository": "m5stack/m5stack-linux-dtoverlays",
+      "revision": "a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4",
+      "path": "modules/m5ioe1-1.0/m5ioe1.c",
+      "sha256": "31205081717c4051808458a37149ec26f99a1f12bb3cb187cef6dc178977f9b3",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/m5ioe1-1.0/m5ioe1.c"
+    },
+    {
+      "repository": "m5stack/m5stack-linux-dtoverlays",
+      "revision": "a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4",
+      "path": "modules/CardputerZero/cardputerzero-v5-overlay.dts",
+      "sha256": "ab46df7faa21d517199889e639d5839209529d628b687bbf9d3f698a6dd3b110",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/CardputerZero/cardputerzero-v5-overlay.dts"
+    },
+    {
+      "repository": "prokrypt/CardputerZero-Open-IOE1",
+      "revision": "4369350e13ba29087b98f39169e57d31e9629e33",
+      "path": "firmware/main.c",
+      "sha256": "26110aacff2c74ec207d687e391bef8729d8480e7a2be0994bcc0e5842c1d492",
+      "url": "https://github.com/prokrypt/CardputerZero-Open-IOE1/blob/4369350e13ba29087b98f39169e57d31e9629e33/firmware/main.c"
+    },
+    {
+      "repository": "prokrypt/CardputerZero-Open-IOE1",
+      "revision": "4369350e13ba29087b98f39169e57d31e9629e33",
+      "path": "README.md",
+      "sha256": "5d610cc226d4eebdbc58b9ee715c03aaa0515cb058410975ff25242142cde993",
+      "url": "https://github.com/prokrypt/CardputerZero-Open-IOE1/blob/4369350e13ba29087b98f39169e57d31e9629e33/README.md"
+    }
+  ],
+  "findings": {
+    "vendor_disabled_offset": 11,
+    "vendor_output_register": "0x06",
+    "vendor_output_bit": 3,
+    "community_offset11_role": "IO12 / PB6 / LCD reset",
+    "community_power_hold_offset": 13,
+    "community_power_hold_pin": "IO14 / PB7",
+    "community_power_hold_firmware_owned_when": "0xB1 == 1",
+    "automatic_pin_change_allowed": false
+  }
+}

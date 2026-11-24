@@ -205,3 +205,12 @@ Przejrzano kod społecznościowych ZeroPower/Open-IOE1: przydatne wskazówki,
 ale stałe opóźnienia nie dowodzą zakończenia zapisów, a numeracja wyjścia
 zasilania wymaga uzgodnienia. Żadnych instalatorów, podmiany kernela ani flashu
 MCU. Pozostajemy na etapie zgodności/safety, bez nowego obrazu do flashowania.
+## Iteracja 9 — numeracja GPIO i ograniczenie wcześniejszej interpretacji
+
+Dodano `hardware/power-mapping-evidence.json` (4 źródła z SHA256) i
+[power-pin-mapping.md](power-pin-mapping.md). Prześledzono offset11 -> GPIO_O_H
+0x06 bit3 bez mapowania specjalnego. Społecznościowy firmware wskazuje tam
+LCD reset, a PWR_EN pod offset13 i kontrolą lock. Oznacza to, że twierdzenie
+„disabled odcina CM0” pozostaje niepotwierdzone, nie że wystarczy zamiana pinu.
+Nie zmieniono kodu sterownika ani DT. Opisano ograniczony odczyt HW id przez
+istniejący interfejs producenta; nie wykonano go na urządzeniu użytkownika.

@@ -98,3 +98,11 @@ Pozostaje dopasowanie schematu/firmware do egzemplarza i uzgodnienie offset11
 `disabled` z PYG14 `PWR_EN`. Społecznościowe ZeroPower i Open-IOE1 nie zostały
 zainstalowane ani zatwierdzone jako rozwiązanie. Nie ma jeszcze podstaw do
 przejścia z blokera do deklaracji bezpiecznego wyłączania.
+## Rozstrzygnięcie ścieżki rejestru (nie funkcji elektrycznej)
+
+[power-pin-mapping.md](power-pin-mapping.md) śledzi offset11 do bit3 rejestru
+0x06. Open-IOE1 opisuje ten pin jako LCD reset, a PWR_EN jako offset13.
+Dlatego **nie jest potwierdzone, że operacja `disabled` odcina zasilanie CM0**.
+Asynchroniczny remount pozostaje faktem kodowym, ale jego skutek sprzętowy
+wymaga potwierdzenia. Nie zamieniono automatycznie offset11 na offset13:
+w społecznościowym firmware pin13 ma dodatkowo własność sterowaną lock.
