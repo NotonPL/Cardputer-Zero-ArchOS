@@ -47,7 +47,10 @@
     "USB_USBNET",
     "ZRAM",
     "BRCMFMAC_SDIO",
-    "BT_HCIUART_BCM"
+    "BT_HCIUART_BCM",
+    "INPUT_MATRIXKMAP",
+    "SERIAL_8250_BCM2835AUX",
+    "BCM2835_THERMAL"
   ],
   "disabled": [
     "BATTERY_BQ27XXX",
