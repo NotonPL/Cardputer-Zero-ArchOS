@@ -1,5 +1,36 @@
 # Etapy i raport iteracji
 
+## Iteracja 4: powtarzalne budowanie sterowników (integracja etapu 1)
+
+Dodano przypięte archiwa i ich SHA256 (`kernel/build-lock.json`), pobieranie
+z kontrolowaną ekstrakcją, własny Kbuild i builder 15 modułów. Nie wykonuje
+vendor make install/config_setup ani żadnego ładowania sterowników.
+Źródła kernela 6.18.64 wskazane przez audytowany pakiet Arch są kandydatem;
+referencyjny config 6.18.39 jest przenoszony przez olddefconfig na potrzeby
+API testu, nie jest jeszcze zatwierdzonym config obrazu Arch.
+
+Lokalnie: 41/41 testów narzędzi OK; sprawdzono SHA256/ekstrakcję obu archiwów,
+staging 26 plików C/h oraz składnię skryptów. Na GitHub Actions wykonano
+rzeczywistą cross-kompilację wszystkich 15 obiektów `.o` i walidację ich
+ELF AArch64: [run 45429656971 — success](https://github.com/NotonPL/Cardputer-Zero-ArchOS/actions/runs/45429656971),
+commit 163ed5068ad1b4152f1220fdd313338ad0066a02. Testy offline w CI również OK.
+
+Tryb `modules` wymaga pełnej tablicy Module.symvers; nie zbudowano jeszcze
+pełnego kernela ani linkowanych modułów `.ko`. Żadnego boot/load testu ani
+pomiaru RAM/energii. Pobranie artefaktów CI do tego sandboxa jest blokowane
+przez przekierowanie do hosta Azure; status kroków sprawdzono przez GitHub.
+Logi/config/raport pozostają dostępne w artefakcie workflow.
+
+Pliki: `tools/{fetch_build_sources,build_vendor_modules}.py`,
+`tests/test_build.py`, `kernel/{build-lock.json,README.md}`,
+`.github/workflows/kernel-api.yml`, `scripts/check-vendor-overlays.sh`.
+Builder dostępny także przez `./build.sh --drivers ...`.
+Kontrola cpp/dtc/fixupów v5 zachowuje ostrzeżenia i nie aplikuje overlay do
+CM0 DTB. Drugi [run 45430245930 — success](https://github.com/NotonPL/Cardputer-Zero-ArchOS/actions/runs/45430245930)
+na commicie 12d548390b3535bd39760658ed7bc8d42e8b3471 ponownie zbudował
+15 obiektów oraz skompilował trzy overlay (płyta v5/bateria/IMU).
+Nie oznacza to zgodności bindingów ani akceptacji vendor powerfail.
+
 ## Iteracja 3: konfiguracja z fizycznego urządzenia (etap 1)
 
 Użytkownik udostępnił kernel config i config.txt z działającego CM0,

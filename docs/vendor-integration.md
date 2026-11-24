@@ -1,5 +1,10 @@
 # Uzupełnienie etapu 1: źródła sprzętowe producenta
 
+> Raport analizy źródeł z iteracji 2. W iteracji 4 wykonano już kompilację
+> 15 obiektów AArch64 oraz trzech overlay w CI; [wyniki](stages.md)
+> i [procedura](../kernel/README.md). Poniższe konflikty sprzętowe nadal
+> pozostają otwarte; nie zbudowano pełnego obrazu ani nie wykonano boot testu.
+
 ## Wynik
 
 Znaleziono istniejące źródła, nie ma potrzeby pisać M5IOE1 od zera.
