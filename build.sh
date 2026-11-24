@@ -23,7 +23,7 @@ case "${1:---help}" in
     ;;
   --image)
     printf '%s\n' 'BLOCKED: stage 1 hardware integration is not validated.' \
-      'Vendor sources found; kernel build, reviewed DT/power-off integration and real boot test still required.' \
+      'Experimental kernel/modules build passes; firmware/rootfs, safe power management and real boot test still required.' \
       'No image was generated. See docs/stages.md.' >&2
     exit 2
     ;;

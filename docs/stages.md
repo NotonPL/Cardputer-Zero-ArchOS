@@ -1,5 +1,53 @@
 # Etapy i raport iteracji
 
+## Iteracja 5: pełny kernel, moduły `.ko`, DT i staging (etap integracji)
+
+**Wynik potwierdzony:** [run 45438187490 — success](https://github.com/NotonPL/Cardputer-Zero-ArchOS/actions/runs/45438187490),
+commit cfddd992401f414bdd071b45adffc510090a2f70. Metadane kroków i artefaktu:
+`kernel/full-build-evidence.json`. Zbudowano Image 6.18.64 oraz wszystkie
+moduły wskazane eksperymentalnym fragmentem CM0/v5, pełne Module.symvers,
+15 vendor `.ko` (ścisły modpost, kontrola AArch64/vermagic), bazowy DTB CM0
+i trzy overlay. Scalenie fdtoverlay i kontrole węzłów/adresów przeszły.
+
+Staging do NOWEGO katalogu zawiera moduły upstream/vendor w /usr/lib/modules,
+Image, config, wyniki DT, hashe i licencję. Depmod -e -E z połączonymi symbolami
+przeszedł BEZ stderr. Archiwum kernel-test-bundle.tar.gz jest wewnątrz artefaktu
+experimental-kernel-build w tym runie. To nie jest rootfs/obraz microSD,
+nie zawiera firmware Pi/peryferiów ani initramfs; NIE flashować/instalować.
+Nie pobrano go do sandboxa (przekierowania storage GitHub poza allowlistą);
+wyniki kroków potwierdzono przez API GitHub, artefakt jest do pobrania w UI.
+
+### Problemy rzeczywiście wykryte i poprawione
+
+- Pierwszy build Image/modułów przeszedł, lecz początkowy allnoconfig odrzucił
+  ustawienia platformy bez nadrzędnego ARCH_BCM. Kontrakt wygenerowanego
+  config wykrył to; dodano rodziców Broadcoma, USB-net, HID, serdev i zram.
+  Sukces kompilacji początkowego Image NIE był dowodem obsługi CM0.
+- Run 45434358931 zatrzymał modpost na brakujących matrix_keypad_*;
+  jawne INPUT_MATRIXKMAP rozwiązało brak biblioteki dla zewnętrznej klawiatury.
+  Uzupełniono też zależności UART/thermal i sterowniki zegara/cpufreq.
+- Run 45436266442 zlinkował 15 `.ko` i scalił DT, ale staging zatrzymał się
+  na ostrzeżeniach wersji symboli. MODVERSIONS bez BASIC_MODVERSIONS nie
+  zapewniało kodowania CRC wymaganego przez obecną kontrolę kmod. Włączono
+  BASIC_MODVERSIONS/GENKSYMS, dodano kontrakt i preflight oraz test regresji;
+  nie wyłączono modpost ani kontroli CRC. Końcowy run przeszedł depmod.
+- DTC nadal generuje ostrzeżenia w źródłach upstream/vendor. Są zachowane;
+  powodzenie scalenia nie oznacza walidacji dt-schema/elektryki sprzętu.
+
+Nowe pliki: kernel/{cardputer-v5.config,contract.json,full-build-evidence.json},
+.github/workflows/kernel-full.yml, tools/check_kernel_contract.py,
+scripts/{check-cm0-dt,stage-kernel-test}.sh,
+tests/{test_kernel_contract,test_kernel_staging}.py. Builder/preflight,
+README kernela i dokumentacja integracji także zaktualizowane.
+
+Testy lokalne: **51/51 OK**, kontrola składni skryptów i diff OK.
+Nadal brak boot/load testu Arch i pomiarów urządzenia. Kernel config jest
+kandydatem integracyjnym, nie wynikiem pomiarowej optymalizacji. Kamera/IR,
+firmware, initramfs i userspace Arch są niekompletne. BQ27220 ma ścieżkę
+programowania parametrów podczas inicjalizacji; vendor powerfail nie jest
+zatwierdzonym bezpiecznym shutdown. To blokady przed dopuszczeniem obrazu
+na sprzęt. Fabryczna karta użytkownika nie została zmieniona.
+
 ## Iteracja 4: powtarzalne budowanie sterowników (integracja etapu 1)
 
 Dodano przypięte archiwa i ich SHA256 (`kernel/build-lock.json`), pobieranie

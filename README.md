@@ -7,6 +7,11 @@ Raspberry Pi OS, kopią AK-Rex ani gotową dystrybucją z dopisanym menu.
 
 ## Co działa teraz
 
+- pełny eksperymentalny build Image/modułów i 15 vendor `.ko` w CI,
+- scalenie trzech overlay v5 z DTB CM0 i staging z kontrolą symboli/CRC,
+- [potwierdzony wynik CI](https://github.com/NotonPL/Cardputer-Zero-ArchOS/actions/runs/45438187490)
+  (artefakt testowy kernela, **nie obraz do flashowania**),
+
 - audyt źródeł przypiętego kernela przez GitHub API (hash każdego pliku),
 - audyt przypiętych źródeł producenta (M5IOE1/BQ27220/LCD/klawiatura),
 - walidacja i eksport trzech warstw mapy klawiatury v5 (46 pozycji),
