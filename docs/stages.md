@@ -195,3 +195,13 @@ wymaga przeglądu synchronizacji IRQ/work. Nie zmieniono zachowania zasilania:
 brak schematu, potwierdzonego znaczenia GPIO11 i pomiaru podtrzymania nie pozwala
 uczciwie dobrać bezpiecznej sekwencji ani opóźnienia. Etap pozostaje zablokowany;
 nie przechodzimy do obrazu i nie traktujemy kompilacji jako testu zaniku zasilania.
+
+## Iteracja 8 — źródła AK-Rex i oficjalny schemat
+
+Raport: [internet-research.md](internet-research.md). Odczytano stronę i README
+obrazu AK-Rexa, metadane repozytoriów oraz oficjalny PDF V0.6.1. Obraz AK-Rexa
+jest opisany jako pre-production Debian; nie zastępuje docelowego Arch.
+Przejrzano kod społecznościowych ZeroPower/Open-IOE1: przydatne wskazówki,
+ale stałe opóźnienia nie dowodzą zakończenia zapisów, a numeracja wyjścia
+zasilania wymaga uzgodnienia. Żadnych instalatorów, podmiany kernela ani flashu
+MCU. Pozostajemy na etapie zgodności/safety, bez nowego obrazu do flashowania.

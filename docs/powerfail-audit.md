@@ -88,3 +88,13 @@ z tego potwierdzenie rewizji v5, funkcji GPIO11 ani czasu podtrzymania.
 Wyszukiwanie kodu GitHub w `m5stack/m5-docs` dla `CardputerZero` nie zwróciło
 wyników; to ograniczony wynik wyszukiwania, nie dowód braku dokumentacji.
 Schemat zasilania pozostaje do pozyskania i analizy.
+
+## Aktualizacja po badaniu Internetu i materiałów AK-Rexa
+
+**Schemat V0.6.1 został odnaleziony**; wcześniejsze stwierdzenia o braku
+pozyskanego schematu opisują stan sprzed tego badania. Źródła, przypięte commity,
+ograniczenia i nowe rozbieżności: [internet-research.md](internet-research.md).
+Pozostaje dopasowanie schematu/firmware do egzemplarza i uzgodnienie offset11
+`disabled` z PYG14 `PWR_EN`. Społecznościowe ZeroPower i Open-IOE1 nie zostały
+zainstalowane ani zatwierdzone jako rozwiązanie. Nie ma jeszcze podstaw do
+przejścia z blokera do deklaracji bezpiecznego wyłączania.
