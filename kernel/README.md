@@ -74,3 +74,16 @@ Pliki firmware, konfiguracja keymap, udev, DTBO i initramfs NIE są jeszcze
 pakowane. Nie instalować tych kompilatów na fabrycznym systemie ani nie
 flashować katalogu output jako obrazu. Instrukcje są procedurą budowania;
 aktualny faktyczny wynik testów dokumentujemy w docs/stages.md.
+
+## Kontrola składni overlay v5
+
+```sh
+bash scripts/check-vendor-overlays.sh .cache/build-vendor out/vendor-overlays
+```
+
+Jawna lista obejmuje skonsolidowany v5, bq27220_v5 i bmi270_bmm150_overlay.
+Skrypt nie wybiera sprzecznego samodzielnego overlay RTC. Używa cpp, dtc
+oraz fdtget, zachowuje wszystkie ostrzeżenia i listę fixupów oraz hashe.
+Nie wykonuje fdtoverlay na CM0 DTB: sukces kompilacji nie oznacza zgodności
+phandle, bindingów lub sprzętu. Nie instaluje wyników. Obecne konflikty
+opisane w docs/vendor-integration.md nadal wymagają rozwiązania.

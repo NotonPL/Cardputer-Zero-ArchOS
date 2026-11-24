@@ -4,12 +4,14 @@ on:
     paths:
       - 'kernel/**'
       - 'tools/*build*'
+      - 'scripts/check-vendor-overlays.sh'
       - 'hardware/reference/**'
       - '.github/workflows/kernel-api.yml'
   pull_request:
     paths:
       - 'kernel/**'
       - 'tools/*build*'
+      - 'scripts/check-vendor-overlays.sh'
       - 'hardware/reference/**'
       - '.github/workflows/kernel-api.yml'
 permissions:
@@ -43,6 +45,8 @@ jobs:
         run: |
           python3 tools/build_vendor_modules.py --kernel-build .cache/build-kernel \
             --vendor-source .cache/build-vendor --mode objects --output out/kernel-api/compile
+      - name: Compile v5 overlays and inspect fixups (no base DT application)
+        run: bash scripts/check-vendor-overlays.sh .cache/build-vendor out/kernel-api/overlays
       - name: Retain diagnostics, never publish as an OS image
         if: always()
         uses: actions/upload-artifact@v4
@@ -53,4 +57,5 @@ jobs:
             out/kernel-api/**/build.log
             out/kernel-api/prepared.config
             out/kernel-api/kernelrelease.txt
+            out/kernel-api/overlays/**
           if-no-files-found: warn

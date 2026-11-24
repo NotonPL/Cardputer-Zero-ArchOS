@@ -76,7 +76,9 @@ def fetch(entry, cache):
             except BaseException:
                 temporary.unlink(missing_ok=True)
                 raise
-        if hashlib.file_digest(temporary.open('rb'), 'sha256').hexdigest() != expected:
+        with temporary.open('rb') as downloaded:
+            actual = hashlib.file_digest(downloaded, 'sha256').hexdigest()
+        if actual != expected:
             temporary.unlink()
             raise ValueError('download SHA256 mismatch')
         temporary.replace(target)
