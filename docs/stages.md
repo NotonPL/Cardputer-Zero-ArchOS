@@ -214,3 +214,15 @@ LCD reset, a PWR_EN pod offset13 i kontrolą lock. Oznacza to, że twierdzenie
 „disabled odcina CM0” pozostaje niepotwierdzone, nie że wystarczy zamiana pinu.
 Nie zmieniono kodu sterownika ani DT. Opisano ograniczony odczyt HW id przez
 istniejący interfejs producenta; nie wykonano go na urządzeniu użytkownika.
+
+## Iteracja 10 — diagnostyka aktywnego DT bez surowej magistrali
+
+Dodano `tools/inspect_power_dt.py`, instrukcję
+[active-power-diagnostics.md](active-power-diagnostics.md) i 8 testów parsera.
+Narzędzie odczytuje aktywny węzeł powerfail, rozwiązuje phandle/offset/flagi GPIO,
+zbiera HW id i nazwę istniejącego drivera M5IOE1. Nie zapisuje rejestrów,
+nie skanuje I2C, nie ładuje modułów, nie używa sudo i nie zbiera sekretów.
+Wynik trafia na stdout; zapis raportu jest opcjonalnym działaniem użytkownika.
+Lokalnie zaliczono 61 testów offline, `--help` i kontrolę białych znaków.
+Nie wykonano kolektora na fizycznym Cardputerze. Bloker pin/firmware/poweroff
+pozostaje otwarty; nie przechodzimy do flashowania ani testu zaniku zasilania.
