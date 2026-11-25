@@ -1,0 +1,706 @@
+{
+  "rows": 5,
+  "columns": 10,
+  "mapped_positions": 46,
+  "maps": {
+    "linux,keymap": [
+      {
+        "row": 4,
+        "column": 0,
+        "keycode": 1
+      },
+      {
+        "row": 4,
+        "column": 9,
+        "keycode": 15
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "keycode": 2
+      },
+      {
+        "row": 0,
+        "column": 0,
+        "keycode": 3
+      },
+      {
+        "row": 0,
+        "column": 1,
+        "keycode": 4
+      },
+      {
+        "row": 0,
+        "column": 2,
+        "keycode": 5
+      },
+      {
+        "row": 0,
+        "column": 3,
+        "keycode": 6
+      },
+      {
+        "row": 0,
+        "column": 4,
+        "keycode": 7
+      },
+      {
+        "row": 0,
+        "column": 5,
+        "keycode": 8
+      },
+      {
+        "row": 0,
+        "column": 6,
+        "keycode": 9
+      },
+      {
+        "row": 0,
+        "column": 7,
+        "keycode": 10
+      },
+      {
+        "row": 0,
+        "column": 8,
+        "keycode": 11
+      },
+      {
+        "row": 0,
+        "column": 9,
+        "keycode": 14
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "keycode": 383
+      },
+      {
+        "row": 1,
+        "column": 0,
+        "keycode": 16
+      },
+      {
+        "row": 1,
+        "column": 1,
+        "keycode": 17
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "keycode": 18
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "keycode": 19
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "keycode": 20
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "keycode": 21
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "keycode": 22
+      },
+      {
+        "row": 1,
+        "column": 7,
+        "keycode": 23
+      },
+      {
+        "row": 1,
+        "column": 8,
+        "keycode": 24
+      },
+      {
+        "row": 1,
+        "column": 9,
+        "keycode": 25
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "keycode": 42
+      },
+      {
+        "row": 2,
+        "column": 0,
+        "keycode": 30
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "keycode": 31
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "keycode": 32
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "keycode": 33
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "keycode": 34
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "keycode": 35
+      },
+      {
+        "row": 2,
+        "column": 6,
+        "keycode": 36
+      },
+      {
+        "row": 2,
+        "column": 7,
+        "keycode": 37
+      },
+      {
+        "row": 2,
+        "column": 8,
+        "keycode": 38
+      },
+      {
+        "row": 2,
+        "column": 9,
+        "keycode": 28
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "keycode": 389
+      },
+      {
+        "row": 3,
+        "column": 0,
+        "keycode": 29
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "keycode": 56
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "keycode": 44
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "keycode": 45
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "keycode": 46
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "keycode": 47
+      },
+      {
+        "row": 3,
+        "column": 6,
+        "keycode": 48
+      },
+      {
+        "row": 3,
+        "column": 7,
+        "keycode": 49
+      },
+      {
+        "row": 3,
+        "column": 8,
+        "keycode": 50
+      },
+      {
+        "row": 3,
+        "column": 9,
+        "keycode": 57
+      }
+    ],
+    "linux,keymap1": [
+      {
+        "row": 4,
+        "column": 0,
+        "keycode": 1
+      },
+      {
+        "row": 4,
+        "column": 9,
+        "keycode": 15
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "keycode": 26
+      },
+      {
+        "row": 0,
+        "column": 0,
+        "keycode": 27
+      },
+      {
+        "row": 0,
+        "column": 1,
+        "keycode": 39
+      },
+      {
+        "row": 0,
+        "column": 2,
+        "keycode": 40
+      },
+      {
+        "row": 0,
+        "column": 3,
+        "keycode": 41
+      },
+      {
+        "row": 0,
+        "column": 4,
+        "keycode": 43
+      },
+      {
+        "row": 0,
+        "column": 5,
+        "keycode": 51
+      },
+      {
+        "row": 0,
+        "column": 6,
+        "keycode": 52
+      },
+      {
+        "row": 0,
+        "column": 7,
+        "keycode": 53
+      },
+      {
+        "row": 0,
+        "column": 8,
+        "keycode": 94
+      },
+      {
+        "row": 0,
+        "column": 9,
+        "keycode": 14
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "keycode": 383
+      },
+      {
+        "row": 1,
+        "column": 0,
+        "keycode": 55
+      },
+      {
+        "row": 1,
+        "column": 1,
+        "keycode": 69
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "keycode": 70
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "keycode": 71
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "keycode": 72
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "keycode": 73
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "keycode": 74
+      },
+      {
+        "row": 1,
+        "column": 7,
+        "keycode": 75
+      },
+      {
+        "row": 1,
+        "column": 8,
+        "keycode": 76
+      },
+      {
+        "row": 1,
+        "column": 9,
+        "keycode": 77
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "keycode": 78
+      },
+      {
+        "row": 2,
+        "column": 0,
+        "keycode": 79
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "keycode": 80
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "keycode": 81
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "keycode": 0
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "keycode": 82
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "keycode": 83
+      },
+      {
+        "row": 2,
+        "column": 6,
+        "keycode": 85
+      },
+      {
+        "row": 2,
+        "column": 7,
+        "keycode": 86
+      },
+      {
+        "row": 2,
+        "column": 8,
+        "keycode": 89
+      },
+      {
+        "row": 2,
+        "column": 9,
+        "keycode": 28
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "keycode": 389
+      },
+      {
+        "row": 3,
+        "column": 0,
+        "keycode": 29
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "keycode": 56
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "keycode": 0
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "keycode": 0
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "keycode": 0
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "keycode": 90
+      },
+      {
+        "row": 3,
+        "column": 6,
+        "keycode": 91
+      },
+      {
+        "row": 3,
+        "column": 7,
+        "keycode": 92
+      },
+      {
+        "row": 3,
+        "column": 8,
+        "keycode": 93
+      },
+      {
+        "row": 3,
+        "column": 9,
+        "keycode": 57
+      }
+    ],
+    "linux,keymap2": [
+      {
+        "row": 4,
+        "column": 0,
+        "keycode": 1
+      },
+      {
+        "row": 4,
+        "column": 9,
+        "keycode": 15
+      },
+      {
+        "row": 4,
+        "column": 4,
+        "keycode": 59
+      },
+      {
+        "row": 0,
+        "column": 0,
+        "keycode": 60
+      },
+      {
+        "row": 0,
+        "column": 1,
+        "keycode": 61
+      },
+      {
+        "row": 0,
+        "column": 2,
+        "keycode": 62
+      },
+      {
+        "row": 0,
+        "column": 3,
+        "keycode": 63
+      },
+      {
+        "row": 0,
+        "column": 4,
+        "keycode": 64
+      },
+      {
+        "row": 0,
+        "column": 5,
+        "keycode": 65
+      },
+      {
+        "row": 0,
+        "column": 6,
+        "keycode": 66
+      },
+      {
+        "row": 0,
+        "column": 7,
+        "keycode": 67
+      },
+      {
+        "row": 0,
+        "column": 8,
+        "keycode": 68
+      },
+      {
+        "row": 0,
+        "column": 9,
+        "keycode": 111
+      },
+      {
+        "row": 4,
+        "column": 3,
+        "keycode": 383
+      },
+      {
+        "row": 1,
+        "column": 0,
+        "keycode": 164
+      },
+      {
+        "row": 1,
+        "column": 1,
+        "keycode": 165
+      },
+      {
+        "row": 1,
+        "column": 2,
+        "keycode": 163
+      },
+      {
+        "row": 1,
+        "column": 3,
+        "keycode": 19
+      },
+      {
+        "row": 1,
+        "column": 4,
+        "keycode": 20
+      },
+      {
+        "row": 1,
+        "column": 5,
+        "keycode": 21
+      },
+      {
+        "row": 1,
+        "column": 6,
+        "keycode": 224
+      },
+      {
+        "row": 1,
+        "column": 7,
+        "keycode": 225
+      },
+      {
+        "row": 1,
+        "column": 8,
+        "keycode": 87
+      },
+      {
+        "row": 1,
+        "column": 9,
+        "keycode": 88
+      },
+      {
+        "row": 4,
+        "column": 1,
+        "keycode": 42
+      },
+      {
+        "row": 2,
+        "column": 0,
+        "keycode": 113
+      },
+      {
+        "row": 2,
+        "column": 1,
+        "keycode": 114
+      },
+      {
+        "row": 2,
+        "column": 2,
+        "keycode": 115
+      },
+      {
+        "row": 2,
+        "column": 3,
+        "keycode": 103
+      },
+      {
+        "row": 2,
+        "column": 4,
+        "keycode": 34
+      },
+      {
+        "row": 2,
+        "column": 5,
+        "keycode": 138
+      },
+      {
+        "row": 2,
+        "column": 6,
+        "keycode": 99
+      },
+      {
+        "row": 2,
+        "column": 7,
+        "keycode": 102
+      },
+      {
+        "row": 2,
+        "column": 8,
+        "keycode": 104
+      },
+      {
+        "row": 2,
+        "column": 9,
+        "keycode": 28
+      },
+      {
+        "row": 4,
+        "column": 2,
+        "keycode": 389
+      },
+      {
+        "row": 3,
+        "column": 0,
+        "keycode": 29
+      },
+      {
+        "row": 3,
+        "column": 1,
+        "keycode": 56
+      },
+      {
+        "row": 3,
+        "column": 2,
+        "keycode": 105
+      },
+      {
+        "row": 3,
+        "column": 3,
+        "keycode": 108
+      },
+      {
+        "row": 3,
+        "column": 4,
+        "keycode": 106
+      },
+      {
+        "row": 3,
+        "column": 5,
+        "keycode": 47
+      },
+      {
+        "row": 3,
+        "column": 6,
+        "keycode": 110
+      },
+      {
+        "row": 3,
+        "column": 7,
+        "keycode": 107
+      },
+      {
+        "row": 3,
+        "column": 8,
+        "keycode": 109
+      },
+      {
+        "row": 3,
+        "column": 9,
+        "keycode": 57
+      }
+    ]
+  },
+  "hardware_validated": false,
+  "warning": "Vendor numeric layers only; not proof of physical keys or FN semantics",
+  "source_sha256": "ab46df7faa21d517199889e639d5839209529d628b687bbf9d3f698a6dd3b110"
+}

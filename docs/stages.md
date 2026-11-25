@@ -1,6 +1,122 @@
 # Etapy i raport iteracji
 
-## Bieżąca iteracja: etap 1 (częściowo wykonany, bramka otwarta)
+## Iteracja 5: pełny kernel, moduły `.ko`, DT i staging (etap integracji)
+
+**Wynik potwierdzony:** [run 45438187490 — success](https://github.com/NotonPL/Cardputer-Zero-ArchOS/actions/runs/45438187490),
+commit cfddd992401f414bdd071b45adffc510090a2f70. Metadane kroków i artefaktu:
+`kernel/full-build-evidence.json`. Zbudowano Image 6.18.64 oraz wszystkie
+moduły wskazane eksperymentalnym fragmentem CM0/v5, pełne Module.symvers,
+15 vendor `.ko` (ścisły modpost, kontrola AArch64/vermagic), bazowy DTB CM0
+i trzy overlay. Scalenie fdtoverlay i kontrole węzłów/adresów przeszły.
+
+Staging do NOWEGO katalogu zawiera moduły upstream/vendor w /usr/lib/modules,
+Image, config, wyniki DT, hashe i licencję. Depmod -e -E z połączonymi symbolami
+przeszedł BEZ stderr. Archiwum kernel-test-bundle.tar.gz jest wewnątrz artefaktu
+experimental-kernel-build w tym runie. To nie jest rootfs/obraz microSD,
+nie zawiera firmware Pi/peryferiów ani initramfs; NIE flashować/instalować.
+Nie pobrano go do sandboxa (przekierowania storage GitHub poza allowlistą);
+wyniki kroków potwierdzono przez API GitHub, artefakt jest do pobrania w UI.
+
+### Problemy rzeczywiście wykryte i poprawione
+
+- Pierwszy build Image/modułów przeszedł, lecz początkowy allnoconfig odrzucił
+  ustawienia platformy bez nadrzędnego ARCH_BCM. Kontrakt wygenerowanego
+  config wykrył to; dodano rodziców Broadcoma, USB-net, HID, serdev i zram.
+  Sukces kompilacji początkowego Image NIE był dowodem obsługi CM0.
+- Run 45434358931 zatrzymał modpost na brakujących matrix_keypad_*;
+  jawne INPUT_MATRIXKMAP rozwiązało brak biblioteki dla zewnętrznej klawiatury.
+  Uzupełniono też zależności UART/thermal i sterowniki zegara/cpufreq.
+- Run 45436266442 zlinkował 15 `.ko` i scalił DT, ale staging zatrzymał się
+  na ostrzeżeniach wersji symboli. MODVERSIONS bez BASIC_MODVERSIONS nie
+  zapewniało kodowania CRC wymaganego przez obecną kontrolę kmod. Włączono
+  BASIC_MODVERSIONS/GENKSYMS, dodano kontrakt i preflight oraz test regresji;
+  nie wyłączono modpost ani kontroli CRC. Końcowy run przeszedł depmod.
+- DTC nadal generuje ostrzeżenia w źródłach upstream/vendor. Są zachowane;
+  powodzenie scalenia nie oznacza walidacji dt-schema/elektryki sprzętu.
+
+Nowe pliki: kernel/{cardputer-v5.config,contract.json,full-build-evidence.json},
+.github/workflows/kernel-full.yml, tools/check_kernel_contract.py,
+scripts/{check-cm0-dt,stage-kernel-test}.sh,
+tests/{test_kernel_contract,test_kernel_staging}.py. Builder/preflight,
+README kernela i dokumentacja integracji także zaktualizowane.
+
+Testy lokalne: **51/51 OK**, kontrola składni skryptów i diff OK.
+Nadal brak boot/load testu Arch i pomiarów urządzenia. Kernel config jest
+kandydatem integracyjnym, nie wynikiem pomiarowej optymalizacji. Kamera/IR,
+firmware, initramfs i userspace Arch są niekompletne. BQ27220 ma ścieżkę
+programowania parametrów podczas inicjalizacji; vendor powerfail nie jest
+zatwierdzonym bezpiecznym shutdown. To blokady przed dopuszczeniem obrazu
+na sprzęt. Fabryczna karta użytkownika nie została zmieniona.
+
+## Iteracja 4: powtarzalne budowanie sterowników (integracja etapu 1)
+
+Dodano przypięte archiwa i ich SHA256 (`kernel/build-lock.json`), pobieranie
+z kontrolowaną ekstrakcją, własny Kbuild i builder 15 modułów. Nie wykonuje
+vendor make install/config_setup ani żadnego ładowania sterowników.
+Źródła kernela 6.18.64 wskazane przez audytowany pakiet Arch są kandydatem;
+referencyjny config 6.18.39 jest przenoszony przez olddefconfig na potrzeby
+API testu, nie jest jeszcze zatwierdzonym config obrazu Arch.
+
+Lokalnie: 41/41 testów narzędzi OK; sprawdzono SHA256/ekstrakcję obu archiwów,
+staging 26 plików C/h oraz składnię skryptów. Na GitHub Actions wykonano
+rzeczywistą cross-kompilację wszystkich 15 obiektów `.o` i walidację ich
+ELF AArch64: [run 45429656971 — success](https://github.com/NotonPL/Cardputer-Zero-ArchOS/actions/runs/45429656971),
+commit 163ed5068ad1b4152f1220fdd313338ad0066a02. Testy offline w CI również OK.
+
+Tryb `modules` wymaga pełnej tablicy Module.symvers; nie zbudowano jeszcze
+pełnego kernela ani linkowanych modułów `.ko`. Żadnego boot/load testu ani
+pomiaru RAM/energii. Pobranie artefaktów CI do tego sandboxa jest blokowane
+przez przekierowanie do hosta Azure; status kroków sprawdzono przez GitHub.
+Logi/config/raport pozostają dostępne w artefakcie workflow.
+
+Pliki: `tools/{fetch_build_sources,build_vendor_modules}.py`,
+`tests/test_build.py`, `kernel/{build-lock.json,README.md}`,
+`.github/workflows/kernel-api.yml`, `scripts/check-vendor-overlays.sh`.
+Builder dostępny także przez `./build.sh --drivers ...`.
+Kontrola cpp/dtc/fixupów v5 zachowuje ostrzeżenia i nie aplikuje overlay do
+CM0 DTB. Drugi [run 45430245930 — success](https://github.com/NotonPL/Cardputer-Zero-ArchOS/actions/runs/45430245930)
+na commicie 12d548390b3535bd39760658ed7bc8d42e8b3471 ponownie zbudował
+15 obiektów oraz skompilował trzy overlay (płyta v5/bateria/IMU).
+Nie oznacza to zgodności bindingów ani akceptacji vendor powerfail.
+
+## Iteracja 3: konfiguracja z fizycznego urządzenia (etap 1)
+
+Użytkownik udostępnił kernel config i config.txt z działającego CM0,
+Debian 13, kernel 6.18.39+rpt-rpi-v8, overlay v5. Zachowano referencję
+w `hardware/reference/stock-cm0-v5/` wraz z analizą i SHA256 wejść.
+Nie identyfikuje to automatycznie rewizji PCB ani commita modułów vendor.
+
+Dodano `tools/inspect_stock_config.py` i `tests/test_stock_config.py`.
+Raport rozróżnia opcje wyłączone/nieobecne i zachowuje filtry firmware;
+nie stosuje ustawień do urządzenia. Istotne: CONFIG_MODVERSIONS=y,
+BQ27XXX/ES8389 upstream wyłączone mimo obecnych modułów zewnętrznych,
+fbcon włączony, fonty 8×8/8×16, gpu_mem=128 i overlay cma-64.
+Nie zmieniono rezerwacji pamięci i nie wyciągnięto wyników RAM z konfiguracji.
+
+Testy offline: 30/30 OK, w tym odtworzenie raportu z załączonych plików.
+Nadal brak kompilacji modułów i boot testu Arch. Szczegóły, pochodzenie
+obserwacji użytkownika i granice wnioskowania w README referencji.
+
+## Iteracja 2: źródła vendor i mapa klawiatury (etap 1 nadal trwa)
+
+Znaleziono i przypięto źródła producenta dla M5IOE1/BQ27220/LCD/klawiatury.
+Potwierdzono upstream RX8130 w rtc-ds1307. Wyodrębniono trzy warstwy po
+46 pozycji z v5; nie są to jeszcze testy fizycznej klawiatury.
+Szczegóły i konflikty DT/shutdown: [vendor-integration.md](vendor-integration.md).
+
+Nowe pliki: hardware/{vendor-sources.toml,vendor-evidence.json,rtc-sources.toml,
+rtc-evidence.json,keymap-v5.json}, tools/inspect_keymap.py,
+tests/test_keymap.py, docs/vendor-integration.md. Zmienione: audytor źródeł
+(opcjonalny cache i ochrona ścieżek), build.sh (--audit-vendor), README,
+dokumentacja kompatybilności i ten raport.
+
+Testy: 23/23 offline OK; audyt 16 plików vendor i 2 plików RTC bez błędów;
+validator rzeczywistego v5: 5×10, 46 pozycji w każdej warstwie.
+Nie kompilowano modułów/DT, nie uruchomiono instalatora, nie testowano boot.
+Obraz nadal zablokowany. Brak źródeł nie jest już główną blokadą M5IOE1;
+pozostają zgodność API/bindingów, wybór rewizji PCB i bezpieczne wyłączanie.
+
+## Iteracja 1: stan historyczny (częściowo wykonany)
 
 Wykonano analizę producenta/ALARM, audyt przypiętego źródła kernela,
 identyfikację różnic CM0/Zero 2, macierz kandydatów sterowników i blokad.
@@ -51,3 +167,62 @@ dla nieistniejącego obrazu. Na tym etapie zachować stockową kartę nietknięt
 a przyszłe testy wykonywać na drugiej karcie. Procedura końcowa musi obejmować
 weryfikację podpisu/hash, identyfikację nośnika, potwierdzenie usunięcia danych,
 weryfikację zapisu, powrót do stock i odzyskanie konfiguracji z backupu.
+
+## Iteracja 6 — ograniczenie BQ27220 do telemetrii (build CI zaliczony)
+
+Dodano obowiązkową łatkę sterownika z kontrolą SHA256 wejścia, łatki i wyjścia.
+Blokuje oba callbacki zapisu dla BQ27220, pomija programowanie profilu podczas
+inicjalizacji i odrzuca wymuszony reset. Nie ma przełącznika odblokowującego zapis.
+Raport budowania rozróżnia źródła upstream od zmodyfikowanych.
+
+Lokalny test C rzeczywistych, wyciętych z zahashowanego źródła funkcji z atrapą
+I2C: 768 prób zapisu odrzuconych bez transferu, pominięte ustawienia, odczyty
+i propagacja błędów zachowane. Nie jest to test urządzenia; odczyty rozszerzone
+wymagające komend MAC mogą nie działać. CI [45439638212](https://github.com/NotonPL/Cardputer-Zero-ArchOS/actions/runs/45439638212)
+zaliczyło Image, 15 modułów, test atrap I2C, scalanie DT oraz ścisły depmod.
+Dowód dla commitu `bff9664`: `kernel/battery-build-evidence.json`.
+Lokalnie zaliczono 53 testy offline.
+Powerfail/shutdown pozostaje osobnym nierozwiązanym blokerem. Nadal brak obrazu
+systemu, bootu i pomiarów sprzętowych.
+
+## Iteracja 7 — audyt powerfail (blokada sprzętowa)
+
+Wyniki i plan testów: [powerfail-audit.md](powerfail-audit.md).
+Prześledzono vendor IRQ/work/DT oraz przypięty kernel SysRq/remount/reboot.
+Nowe ustalenie: SysRq U tylko kolejkuje remount, a vendor natychmiast przechodzi
+do wyjścia M5IOE1 bez oczekiwania na zakończenie. Dodatkowo kolejność unload
+wymaga przeglądu synchronizacji IRQ/work. Nie zmieniono zachowania zasilania:
+brak schematu, potwierdzonego znaczenia GPIO11 i pomiaru podtrzymania nie pozwala
+uczciwie dobrać bezpiecznej sekwencji ani opóźnienia. Etap pozostaje zablokowany;
+nie przechodzimy do obrazu i nie traktujemy kompilacji jako testu zaniku zasilania.
+
+## Iteracja 8 — źródła AK-Rex i oficjalny schemat
+
+Raport: [internet-research.md](internet-research.md). Odczytano stronę i README
+obrazu AK-Rexa, metadane repozytoriów oraz oficjalny PDF V0.6.1. Obraz AK-Rexa
+jest opisany jako pre-production Debian; nie zastępuje docelowego Arch.
+Przejrzano kod społecznościowych ZeroPower/Open-IOE1: przydatne wskazówki,
+ale stałe opóźnienia nie dowodzą zakończenia zapisów, a numeracja wyjścia
+zasilania wymaga uzgodnienia. Żadnych instalatorów, podmiany kernela ani flashu
+MCU. Pozostajemy na etapie zgodności/safety, bez nowego obrazu do flashowania.
+## Iteracja 9 — numeracja GPIO i ograniczenie wcześniejszej interpretacji
+
+Dodano `hardware/power-mapping-evidence.json` (4 źródła z SHA256) i
+[power-pin-mapping.md](power-pin-mapping.md). Prześledzono offset11 -> GPIO_O_H
+0x06 bit3 bez mapowania specjalnego. Społecznościowy firmware wskazuje tam
+LCD reset, a PWR_EN pod offset13 i kontrolą lock. Oznacza to, że twierdzenie
+„disabled odcina CM0” pozostaje niepotwierdzone, nie że wystarczy zamiana pinu.
+Nie zmieniono kodu sterownika ani DT. Opisano ograniczony odczyt HW id przez
+istniejący interfejs producenta; nie wykonano go na urządzeniu użytkownika.
+
+## Iteracja 10 — diagnostyka aktywnego DT bez surowej magistrali
+
+Dodano `tools/inspect_power_dt.py`, instrukcję
+[active-power-diagnostics.md](active-power-diagnostics.md) i 8 testów parsera.
+Narzędzie odczytuje aktywny węzeł powerfail, rozwiązuje phandle/offset/flagi GPIO,
+zbiera HW id i nazwę istniejącego drivera M5IOE1. Nie zapisuje rejestrów,
+nie skanuje I2C, nie ładuje modułów, nie używa sudo i nie zbiera sekretów.
+Wynik trafia na stdout; zapis raportu jest opcjonalnym działaniem użytkownika.
+Lokalnie zaliczono 61 testów offline, `--help` i kontrolę białych znaków.
+Nie wykonano kolektora na fizycznym Cardputerze. Bloker pin/firmware/poweroff
+pozostaje otwarty; nie przechodzimy do flashowania ani testu zaniku zasilania.

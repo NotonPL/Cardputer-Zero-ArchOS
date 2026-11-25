@@ -1,0 +1,12 @@
+{
+  "kernel": {
+    "repository": "raspberrypi/linux",
+    "revision": "b0b7d2006113562307ade2f6a075b03f3a781346",
+    "sha256": "d56deab742f52d6729a5228c6220f03266dec3d9514765e269dc930e05baa818"
+  },
+  "vendor": {
+    "repository": "m5stack/m5stack-linux-dtoverlays",
+    "revision": "a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4",
+    "sha256": "bb671341f2419b2cd20607fb7e00fde4a35a338a8de7036632430375a66514d0"
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "schema": 1,
+  "kind": "static-reference-not-runtime-validation",
+  "kernel_sha256": "eb5d806796ea79dc73f73cce9ca3146fbd54318f3a3b0cd5b70a500d488e6114",
+  "boot_sha256": "40de4f7dfbb833723928a97c89e8a38923adcfac5e12aaced7d7d3f0378d5a28",
+  "symbols": {
+    "CONFIG_ARM64": "y",
+    "CONFIG_64BIT": "y",
+    "CONFIG_MODULES": "y",
+    "CONFIG_MODVERSIONS": "y",
+    "CONFIG_MODULE_SIG": "n",
+    "CONFIG_PREEMPT": "y",
+    "CONFIG_OF": "y",
+    "CONFIG_DEVTMPFS": "y",
+    "CONFIG_FW_LOADER": "y",
+    "CONFIG_I2C": "y",
+    "CONFIG_I2C_BCM2835": "m",
+    "CONFIG_I2C_CHARDEV": "m",
+    "CONFIG_SPI": "y",
+    "CONFIG_SPI_BCM2835": "m",
+    "CONFIG_GPIOLIB": "y",
+    "CONFIG_GPIO_CDEV": "y",
+    "CONFIG_PINCTRL": "y",
+    "CONFIG_PWM": "y",
+    "CONFIG_REGMAP_I2C": "m",
+    "CONFIG_REGMAP_SPI": "m",
+    "CONFIG_DRM": "m",
+    "CONFIG_DRM_VC4": "m",
+    "CONFIG_DRM_MIPI_DBI": "m",
+    "CONFIG_DRM_FBDEV_EMULATION": "y",
+    "CONFIG_FRAMEBUFFER_CONSOLE": "y",
+    "CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY": "y",
+    "CONFIG_FONT_8x8": "y",
+    "CONFIG_FONT_8x16": "y",
+    "CONFIG_KEYBOARD_TCA8418": "m",
+    "CONFIG_BATTERY_BQ27XXX": "n",
+    "CONFIG_SND_SOC_ES8389": "n",
+    "CONFIG_RTC_DRV_DS1307": "m",
+    "CONFIG_ZRAM": "m",
+    "CONFIG_ZRAM_DEF_COMP": "\"zstd\"",
+    "CONFIG_ZSWAP": "y",
+    "CONFIG_ZSWAP_DEFAULT_ON": "n",
+    "CONFIG_CMA": "y",
+    "CONFIG_CMA_SIZE_MBYTES": "5"
+  },
+  "boot_records": [
+    {
+      "line": 1,
+      "section": "unfiltered",
+      "key": "splash_screen",
+      "value": "CardputerZero_splash_custom.bin"
+    },
+    {
+      "line": 2,
+      "section": "unfiltered",
+      "key": "gpu_mem",
+      "value": "128"
+    },
+    {
+      "line": 9,
+      "section": "unfiltered",
+      "key": "dtparam",
+      "value": "i2c_arm=on"
+    },
+    {
+      "line": 10,
+      "section": "unfiltered",
+      "key": "dtparam",
+      "value": "i2s=on"
+    },
+    {
+      "line": 11,
+      "section": "unfiltered",
+      "key": "dtparam",
+      "value": "spi=on"
+    },
+    {
+      "line": 14,
+      "section": "unfiltered",
+      "key": "dtparam",
+      "value": "audio=off"
+    },
+    {
+      "line": 20,
+      "section": "unfiltered",
+      "key": "camera_auto_detect",
+      "value": "0"
+    },
+    {
+      "line": 23,
+      "section": "unfiltered",
+      "key": "display_auto_detect",
+      "value": "1"
+    },
+    {
+      "line": 26,
+      "section": "unfiltered",
+      "key": "auto_initramfs",
+      "value": "1"
+    },
+    {
+      "line": 29,
+      "section": "unfiltered",
+      "key": "dtoverlay",
+      "value": "vc4-kms-v3d,cma-64"
+    },
+    {
+      "line": 30,
+      "section": "unfiltered",
+      "key": "max_framebuffers",
+      "value": "2"
+    },
+    {
+      "line": 34,
+      "section": "unfiltered",
+      "key": "disable_fw_kms_setup",
+      "value": "1"
+    },
+    {
+      "line": 37,
+      "section": "unfiltered",
+      "key": "arm_64bit",
+      "value": "1"
+    },
+    {
+      "line": 40,
+      "section": "unfiltered",
+      "key": "disable_overscan",
+      "value": "1"
+    },
+    {
+      "line": 43,
+      "section": "unfiltered",
+      "key": "arm_boost",
+      "value": "1"
+    },
+    {
+      "line": 45,
+      "section": "unfiltered",
+      "key": "dtoverlay",
+      "value": "imx219"
+    },
+    {
+      "line": 50,
+      "section": "cm4",
+      "key": "otg_mode",
+      "value": "1"
+    },
+    {
+      "line": 53,
+      "section": "cm5",
+      "key": "dtoverlay",
+      "value": "dwc2,dr_mode=host"
+    },
+    {
+      "line": 56,
+      "section": "all",
+      "key": "enable_uart",
+      "value": "1"
+    },
+    {
+      "line": 57,
+      "section": "all",
+      "key": "dtoverlay",
+      "value": "dwc2"
+    },
+    {
+      "line": 58,
+      "section": "all",
+      "key": "dtoverlay",
+      "value": "cardputerzero-v5-overlay"
+    },
+    {
+      "line": 59,
+      "section": "all",
+      "key": "dtoverlay",
+      "value": "bq27220_v5"
+    },
+    {
+      "line": 60,
+      "section": "all",
+      "key": "dtoverlay",
+      "value": "bmi270_bmm150_overlay"
+    },
+    {
+      "line": 61,
+      "section": "all",
+      "key": "dtoverlay",
+      "value": "gpio-ir,gpio_pin=13,gpio_pull=up"
+    },
+    {
+      "line": 62,
+      "section": "all",
+      "key": "dtoverlay",
+      "value": "gpio-ir-tx,gpio_pin=12"
+    }
+  ],
+  "warnings": [
+    "Missing symbols are unknown, not automatically disabled.",
+    "Firmware filters/includes are not evaluated; records are not effective settings.",
+    "Kernel support does not prove a feature is loaded or enabled at runtime.",
+    "No ABI compatibility or bootability is certified by this report."
+  ]
+}

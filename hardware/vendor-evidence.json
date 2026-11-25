@@ -1,0 +1,119 @@
+{
+  "repository": "m5stack/m5stack-linux-dtoverlays",
+  "revision": "a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4",
+  "warning": "Source presence only; no hardware validation",
+  "probes": [
+    {
+      "id": "vendor-00",
+      "path": "COPYING",
+      "sha256": "ee5808b032a67f587d3541099d46de34f5bec8cd5976114ba07f1299ee6001ff",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/COPYING"
+    },
+    {
+      "id": "vendor-01",
+      "path": "modules/CardputerZero/Makefile",
+      "sha256": "7dbc4a591ece6d6c6edbcd39a4097445c0ea0c5e93ae03ecef07b7643eb4e42c",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/CardputerZero/Makefile"
+    },
+    {
+      "id": "vendor-02",
+      "path": "modules/CardputerZero/cardputerzero-v5-overlay.dts",
+      "sha256": "ab46df7faa21d517199889e639d5839209529d628b687bbf9d3f698a6dd3b110",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/CardputerZero/cardputerzero-v5-overlay.dts"
+    },
+    {
+      "id": "vendor-03",
+      "path": "modules/CardputerZero/cardputerzero-v3-overlay.dts",
+      "sha256": "8d81e4165d2a03c20391ea660b5bf03ac05e265f30e3bfab584ea1f2ffd1b2b6",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/CardputerZero/cardputerzero-v3-overlay.dts"
+    },
+    {
+      "id": "vendor-04",
+      "path": "modules/CardputerZero/powerfail_suo.c",
+      "sha256": "6fc04c0c6457aa6fc1791d043642e6a00bd332358bd5cf3381cf7c10195e3885",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/CardputerZero/powerfail_suo.c"
+    },
+    {
+      "id": "vendor-05",
+      "path": "modules/m5ioe1-1.0/m5ioe1.c",
+      "sha256": "31205081717c4051808458a37149ec26f99a1f12bb3cb187cef6dc178977f9b3",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/m5ioe1-1.0/m5ioe1.c"
+    },
+    {
+      "id": "vendor-06",
+      "path": "modules/tca8418-1.0/tca8418_keypad_m5stack.c",
+      "sha256": "5a588c4c2b8c67a65cb69c5b983c403863b564d5610058b0de77a798f60761af",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/tca8418-1.0/tca8418_keypad_m5stack.c"
+    },
+    {
+      "id": "vendor-07",
+      "path": "modules/tca8418-1.0/tca8418_fsm.c",
+      "sha256": "d8b365495475cd0791c05320ba35bf51b16813672c1dc93e28a8ffb662495e18",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/tca8418-1.0/tca8418_fsm.c"
+    },
+    {
+      "id": "vendor-08",
+      "path": "modules/tca8418-1.0/tca8418_keypad_m5stack_keymap.map",
+      "sha256": "ac70eb97e9324a17c60d238f76ff90a3efb154f6bb026650ba78ced0c5b9896c",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/tca8418-1.0/tca8418_keypad_m5stack_keymap.map"
+    },
+    {
+      "id": "vendor-09",
+      "path": "modules/bq27220-1.0/bq27xxx_battery_i2c.c",
+      "sha256": "a90820219fc32ec924ff0098f654d4d1f7ab9913211843ee498f3c26c042a1c3",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/bq27220-1.0/bq27xxx_battery_i2c.c"
+    },
+    {
+      "id": "vendor-10",
+      "path": "modules/bq27220-1.0/bq27xxx_battery.c",
+      "sha256": "59f0c65f8d04b73d145d7eb137b17a28c7b9b6d2420bf2889954fb3ea8b40339",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/bq27220-1.0/bq27xxx_battery.c"
+    },
+    {
+      "id": "vendor-11",
+      "path": "modules/bq27220-1.0/bq27220_v5.dts",
+      "sha256": "2343d7cd94b7cec737fb4024e8db85781d9b03e3c94f67228604af0ff710782f",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/bq27220-1.0/bq27220_v5.dts"
+    },
+    {
+      "id": "vendor-12",
+      "path": "modules/rx8130/rx8130-overlay.dts",
+      "sha256": "30f4ea30c01b9873c429cb945824e71d77f52ebd37b399ec85d4653bdd66d9b0",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/rx8130/rx8130-overlay.dts"
+    },
+    {
+      "id": "vendor-13",
+      "path": "modules/st7789v-1.0/panel-mipi-dbi-m.c",
+      "sha256": "e667b837a31397a835600b6e8faee92102f70186781f2a920c200ae70b28b158",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/st7789v-1.0/panel-mipi-dbi-m.c"
+    },
+    {
+      "id": "vendor-14",
+      "path": "modules/st7789v-1.0/pwm_bl_m5stack.c",
+      "sha256": "ce0ed57a3ab47a3eb85601f1a533f7720abfad8c73be88fbb983046265c404e2",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/st7789v-1.0/pwm_bl_m5stack.c"
+    },
+    {
+      "id": "vendor-15",
+      "path": "modules/es8389-1.0/es8389_m5stack.c",
+      "sha256": "3b459a04ae44d05c24542b47dcfc18aa25bf8448c89c6d12c195e9e0be10da66",
+      "result": "found",
+      "url": "https://github.com/m5stack/m5stack-linux-dtoverlays/blob/a3fd3e83c0247e16e194e7e40f7fc1f5be933dd4/modules/es8389-1.0/es8389_m5stack.c"
+    }
+  ]
+}

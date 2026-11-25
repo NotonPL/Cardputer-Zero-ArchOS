@@ -1,0 +1,135 @@
+{
+  "conclusion": "success",
+  "headSha": "bff96647a85eb03f2d33a39ca22f260a9056dc94",
+  "jobs": [
+    {
+      "completedAt": "2026-11-24T16:40:34Z",
+      "conclusion": "success",
+      "databaseId": 138606840618,
+      "name": "full-build",
+      "startedAt": "2026-11-24T16:39:20Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "CI dependencies",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Toolchain identity",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/cache/restore@v4",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Fetch locked sources",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Configure experimental CM0 kernel",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verify resolved configuration contract",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build Image and ALL configured modules (no modpost bypass)",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/save@v4",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Link vendor modules against matching symbol table",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Build CM0 base DTB and merge v5 overlays",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Stage test bundle and check module dependencies (never install on host)",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Expose failure diagnostics through check annotations",
+          "number": 15,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Retain logs even when build fails",
+          "number": 16,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5",
+          "number": 31,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 32,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 33,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/NotonPL/Cardputer-Zero-ArchOS/actions/runs/45439638212/job/138606840618"
+    }
+  ],
+  "name": "Full experimental CM0 kernel",
+  "url": "https://github.com/NotonPL/Cardputer-Zero-ArchOS/actions/runs/45439638212",
+  "hardware_validated": false,
+  "scope": "BQ27220 telemetry-only patch: full Image/modules, 15 vendor modules, host fake-I2C test, CM0 DT merge and strict staging/depmod. Not a boot or device test."
+}

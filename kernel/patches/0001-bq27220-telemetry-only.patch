@@ -1,0 +1,37 @@
+--- a/bq27xxx_battery_i2c.c
++++ b/bq27xxx_battery_i2c.c
+@@ -81,6 +81,10 @@
+ 	u8 data[4];
+ 	int ret;
+ 
++	/* Cardputer integration: BQ27220 telemetry only; no programming. */
++	if (di->chip == BQ27220)
++		return -EPERM;
++
+ 	if (!client->adapter)
+ 		return -ENODEV;
+ 
+@@ -131,6 +135,10 @@
+ 	struct i2c_msg msg;
+ 	u8 buf[33];
+ 	int ret;
++
++	/* Cardputer integration: BQ27220 telemetry only; no programming. */
++	if (di->chip == BQ27220)
++		return -EPERM;
+ 
+ 	if (!client->adapter)
+ 		return -ENODEV;
+--- a/bq27xxx_battery.c
++++ b/bq27xxx_battery.c
+@@ -2821,6 +2821,10 @@
+ 	bool found;
+ 	int ret;
+ 
++	/* Cardputer: keep the existing gauge profile; explicit reset is denied. */
++	if (di->chip == BQ27220)
++		return force ? -EPERM : 0;
++
+ 	ret = bq27220_battery_read_design_dt(di, force, &found);
+ 	if (ret < 0 || found)
+ 		return ret;

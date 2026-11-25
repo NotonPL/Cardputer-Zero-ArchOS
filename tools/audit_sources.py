@@ -21,7 +21,8 @@ def validate(config):
     ids = set()
     for probe in config['probe']:
         path = Path(probe['path'])
-        if path.is_absolute() or '..' in path.parts or not path.parts:
+        if (path.is_absolute() or '..' in path.parts or not path.parts
+                or not re.fullmatch(r'[A-Za-z0-9_.,+@/-]+', probe['path'])):
             raise ValueError('unsafe source path')
         if probe['id'] in ids:
             raise ValueError('duplicate probe')
@@ -35,10 +36,22 @@ def inspect(probe, data):
                         else 'identifier-not-found'))
 
 
+def cache_source(directory, relative_path, data):
+    """Explicit opt-in source cache; no execution or installation."""
+    root = directory.resolve()
+    destination = root / relative_path
+    if not destination.resolve().is_relative_to(root):
+        raise ValueError('cache path escapes destination')
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(data)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--manifest', type=Path, default=ROOT/'hardware/sources.toml')
     ap.add_argument('--output', type=Path, required=True)
+    ap.add_argument('--cache-dir', type=Path,
+                    help='optionally save fetched sources; never executes them')
     args = ap.parse_args()
     config = tomllib.loads(args.manifest.read_text())
     validate(config)
@@ -56,6 +69,8 @@ def main():
         else:
             data = base64.b64decode(json.loads(proc.stdout)['content'])
             row = inspect(probe, data)
+            if args.cache_dir:
+                cache_source(args.cache_dir, probe['path'], data)
         row['url'] = f"https://github.com/{config['repository']}/blob/{config['revision']}/{probe['path']}"
         report['probes'].append(row)
     args.output.parent.mkdir(parents=True, exist_ok=True)
