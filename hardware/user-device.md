@@ -41,3 +41,17 @@ połączeń zasilania; nie rozstrzyga znaczenia GPIO11 ani czasu podtrzymania.
 - Nie wymagać od użytkownika rozkręcania urządzenia na tym etapie.
 - Blokery powerfail opisano w `docs/powerfail-audit.md`; identyfikacja wariantu
   ich nie usuwa.
+
+## Odczyt zgłoszony przez użytkownika
+
+Użytkownik podał wynik diagnostyki fabrycznego systemu:
+
+- kernel: `6.18.39+rpt-rpi-v8`;
+- HW id: `0x06`.
+
+Źródło: wiadomość użytkownika, nie zdalne wykonanie poleceń przez agenta.
+Identyfikator nie jest numerem firmware MCU ani samodzielnym dowodem rewizji PCB.
+Dostarczony na Drive `config.txt` włącza `cardputerzero-v5-overlay`,
+`bq27220_v5` i `bmi270_bmm150_overlay`; jest to dowód konfiguracji zapisanej
+na karcie, nie odczyt aktywnego DT ani walidacja wszystkich peryferiów.
+Szczegóły inspekcji: `docs/drive-reference-review.md`.
